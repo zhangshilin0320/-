@@ -36,11 +36,12 @@ public class UserController {
     }
 
 //    注册
-    @GetMapping("/registry/{name}/{password}/{phone}")
-    public ResponseEntity<String> registry(@PathVariable String name,@PathVariable String password,@PathVariable String phone){
+    @GetMapping("/registry/{name}/{password}")
+    public ResponseEntity<String> registry(@PathVariable String name,@PathVariable String password){
+//        密码加密
         String salt =  BCrypt.gensalt();
         String password1 = BCrypt.hashpw(password,salt);
-        User user = new User(name,password1,phone);
+        User user = new User(name,password1);
         int integer = userService.insert(user);
         if (integer > 0){
             return ResponseEntity.ok("注册成功");

@@ -5,21 +5,20 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
 
-@TableName("tb_user")
+@TableName("user")
 @Data
 public class User {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String userName;
     private String password;
-    private String userPhone;
-    private Date createdTime;
+    private String name;
+    private String sex;
+    private String phone;
+    private String location;
 
-    public User(String userName, String password, String userPhone) {
-        this.userName = userName;
+    public User(String userName, String password) {
+        this.name = userName;
         this.password = password;
-        this.userPhone = userPhone;
     }
 }
