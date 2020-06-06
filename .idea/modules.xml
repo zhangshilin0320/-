@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pet-user/per-user-service/per-user-service.iml" filepath="$PROJECT_DIR$/pet-user/per-user-service/per-user-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-gateway/pet-gateway.iml" filepath="$PROJECT_DIR$/pet-gateway/pet-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-mall.iml" filepath="$PROJECT_DIR$/pet-mall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-registry/pet-registry.iml" filepath="$PROJECT_DIR$/pet-registry/pet-registry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-user/pet-user.iml" filepath="$PROJECT_DIR$/pet-user/pet-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-user/pet-user-interface/pet-user-interface.iml" filepath="$PROJECT_DIR$/pet-user/pet-user-interface/pet-user-interface.iml" />
+    </modules>
+  </component>
+</project>
