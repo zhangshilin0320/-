@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pet-registry" />
+        <module name="per-user-service" />
+        <module name="pet-user-interface" />
+        <module name="pet-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="per-user-service" target="1.8" />
+      <module name="pet-gateway" target="1.8" />
+      <module name="pet-mall" target="1.8" />
+      <module name="pet-registry" target="1.8" />
+      <module name="pet-user" target="1.8" />
+      <module name="pet-user-interface" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="per-user-service" options="-parameters" />
+      <module name="pet-gateway" options="-parameters" />
+      <module name="pet-registry" options="-parameters" />
+      <module name="pet-user-interface" options="-parameters" />
+    </option>
+  </component>
+</project>
