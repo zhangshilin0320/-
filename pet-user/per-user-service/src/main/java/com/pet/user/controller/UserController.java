@@ -1,38 +1,60 @@
 package com.pet.user.controller;
 
+import com.pet.pet.pojo.Pet;
+import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.pojo.User;
 import com.pet.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductFeignClient productFeignClient;
+
+    @GetMapping("/")
+    public String index(String name,Model model){
+        if (name != null){
+            User user = userService.findOne(name);
+            model.addAttribute("user",user);
+        }
+        List<Pet> petList = productFeignClient.selectAllPets();
+        model.addAttribute("pets",petList);
+//        System.out.println(petList);
+        return "index";
+    }
+
 //    登录
-    @GetMapping("/login/{username}/{password}")
-    public ResponseEntity<Map<Object,Object>> login(@PathVariable String username, @PathVariable String password){
+    @GetMapping("/login")
+    public String login(String username, String password,Model model) throws UnsupportedEncodingException {
+
         User user = userService.findOne(username);
+        String msg;
         if (user != null){
             boolean checkPwd = BCrypt.checkpw(password,user.getPassword());
-            Map<Object, Object> map = new HashMap<>();
             if (checkPwd){
-                map.put("user",user);
-                return ResponseEntity.ok(map);
+                model.addAttribute("user",user);
+                return "redirect:/api/user/?name=" + URLEncoder.encode(username,"UTF-8");
             }
-            map.put("msg","密码错误");
-            return ResponseEntity.ok(map);
+            msg = "密码错误";
+            model.addAttribute("msg",msg);
         }
-        return ResponseEntity.notFound().build();
+        msg = "用户不存在";
+        model.addAttribute("msg",msg);
+        return "login";
     }
 
 //    注册
@@ -47,5 +69,37 @@ public class UserController {
             return ResponseEntity.ok("注册成功");
         }
         return ResponseEntity.notFound().build();
+    }
+
+//    查询宠物
+    @RequestMapping("/findPetsByConditions")
+    public String findPetsByConditions(Integer typeId,String body,String length,String color,String name,Model model){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("body",body);
+        map.put("length",length);
+        map.put("typeId",typeId);
+        map.put("color",color);
+        List<Pet> pets =  productFeignClient.findByConditions(map);
+        model.addAttribute("pets",pets);
+        return "search";
+    }
+
+//    跳转到宠物商城页面
+    @GetMapping("/searchHtml")
+    public String searchHtml(Model model){
+        List<Pet> petList = productFeignClient.selectAllPets();
+        model.addAttribute("pets",petList);
+        return "search";
+    }
+
+//    跳转到购物页面
+    @RequestMapping("/petHtml")
+    public String shopPet(String name,Model model){
+        Pet pet = productFeignClient.findOne(name);
+//        System.out.println(pet);
+        model.addAttribute("pet",pet);
+        return "pet";
     }
 }

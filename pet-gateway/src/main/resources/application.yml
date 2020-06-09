@@ -9,7 +9,9 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
 zuul:
+  add-host-header: true
   prefix: /api #路由路径的前缀
   routes:
-    user-service: /user/** #商品服务的映射路径
+    user-service: /user/** #用户服务的映射路径
+    pet-service: /pet/** #商品服务的映射路径
 #    system-service: /system/**
