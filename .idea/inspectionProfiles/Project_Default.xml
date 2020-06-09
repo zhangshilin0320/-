@@ -3,6 +3,7 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
+<<<<<<< HEAD
         <language minSize="89" name="Java" />
       </Languages>
     </inspection_tool>
@@ -32,5 +33,11 @@
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+=======
+        <language minSize="156" name="Java" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="SpringJavaInjectionPointsAutowiringInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+>>>>>>> upstream/zsl
   </profile>
 </component>

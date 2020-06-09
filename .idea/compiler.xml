@@ -9,29 +9,32 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pet-user-interface" />
         <module name="pet-registry" />
-        <module name="pet-pet-service" />
         <module name="pet-gateway" />
-        <module name="pet-user-service" />
-        <module name="per-user-service" />
         <module name="pet-pet-interface" />
+        <module name="per-user-service" />
+        <module name="pet-pet-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pet-user-service" target="1.8" />
+      <module name="per-user-service" target="1.8" />
+      <module name="pet-gateway" target="1.8" />
+      <module name="pet-mall" target="1.8" />
+      <module name="pet-pet" target="1.8" />
+      <module name="pet-pet-interface" target="1.8" />
+      <module name="pet-pet-service" target="1.8" />
+      <module name="pet-registry" target="1.8" />
+      <module name="pet-user" target="1.8" />
+      <module name="pet-user-interface" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="per-user-service" options="-parameters" />
       <module name="pet-gateway" options="-parameters" />
-      <module name="pet-mall" options="-parameters" />
-      <module name="pet-pet" options="-parameters" />
       <module name="pet-pet-interface" options="-parameters" />
       <module name="pet-pet-service" options="-parameters" />
       <module name="pet-registry" options="-parameters" />
-      <module name="pet-user" options="-parameters" />
       <module name="pet-user-interface" options="-parameters" />
-      <module name="pet-user-service" options="-parameters" />
     </option>
   </component>
 </project>
