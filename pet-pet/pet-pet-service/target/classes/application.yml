@@ -1,0 +1,20 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: pet-service
+  datasource:
+    url: jdbc:mysql://139.196.254.75:3306/pet?Unicode=true&characterEncoding=utf8
+    username: root
+    password: mysql123456
+    hikari:
+      max-lifetime: 1800000
+      maximum-pool-size:  10
+    driver-class-name: com.mysql.jdbc.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10

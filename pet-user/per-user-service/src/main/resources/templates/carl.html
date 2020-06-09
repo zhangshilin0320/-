@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/api/user/order/createOrder}">
+    <input type="text" value="1" name="petId">
+    <input type="text" value="100" name="totalPay">
+    <input type="text" value="80" name="actualPay">
+    <input type="text" value="就户籍科户籍科" name="message">
+    <input type="text" value="乌" name="username">
+    <input type="text" value="713800" name="receiverZip">
+    <input type="text" name="address" value="山西省太原市">
+    <input type="text" name="phone" value="1231456">
+    <input type="text" name="receiver" value="zhangsan">
+    <input type="text" name="num" value="2">
+    <input type="submit" name="购买">
+</form>
+</body>
+</html>

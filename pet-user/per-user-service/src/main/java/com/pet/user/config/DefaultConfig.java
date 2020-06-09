@@ -1,0 +1,16 @@
+package com.pet.user.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class DefaultConfig implements WebMvcConfigurer {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("login.html").setViewName("login");
+//        registry.addViewController("search.html").setViewName("search");
+        registry.addViewController("index.html").setViewName("index");
+        registry.addViewController("carl.html").setViewName("carl");
+    }
+}
