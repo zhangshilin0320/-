@@ -16,6 +16,4 @@
         <module>pet-user-interface</module>
         <module>per-user-service</module>
     </modules>
-
-
 </project>

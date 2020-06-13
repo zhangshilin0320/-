@@ -44,6 +44,24 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <!-- 添加依赖 spring-boot-devtools -->
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>2.2.6.RELEASE</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.9.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>1.9.6</version>
+            </dependency>
             <!-- springCloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -81,16 +99,16 @@
                 <artifactId>swagger-annotations</artifactId>
                 <version>1.5.24</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.6.RELEASE</version>
             </plugin>
         </plugins>
     </build>
-
 </project>

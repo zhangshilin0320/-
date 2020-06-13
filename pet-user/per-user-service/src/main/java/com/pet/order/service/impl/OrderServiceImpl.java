@@ -32,7 +32,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
 
-//    分页条件(订单号，创建时间，用户id)查询所有订单
+//    分页条件(订单号，创建时间，用户id，状态，商品名称)查询所有订单
     @Override
     public IPage<Order> selectListByPage(Integer pageNum, Integer pageSize, Map<String, Object> map) {
         Page<Order> page = new Page<>(pageNum,pageSize);

@@ -9,16 +9,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pet-user-interface" />
         <module name="pet-registry" />
-        <module name="pet-gateway" />
-        <module name="pet-pet-interface" />
-        <module name="per-user-service" />
         <module name="pet-pet-service" />
+        <module name="pet-gateway" />
+        <module name="per-user-service" />
+        <module name="pet-pet-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="per-user-service" target="1.8" />
       <module name="pet-gateway" target="1.8" />
       <module name="pet-mall" target="1.8" />
+      <module name="pet-pay" target="1.8" />
       <module name="pet-pet" target="1.8" />
       <module name="pet-pet-interface" target="1.8" />
       <module name="pet-pet-service" target="1.8" />
@@ -31,6 +32,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="per-user-service" options="-parameters" />
       <module name="pet-gateway" options="-parameters" />
+      <module name="pet-pay" options="-parameters" />
       <module name="pet-pet-interface" options="-parameters" />
       <module name="pet-pet-service" options="-parameters" />
       <module name="pet-registry" options="-parameters" />

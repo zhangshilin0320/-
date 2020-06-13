@@ -1,5 +1,6 @@
 package com.pet.user.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pet.pet.pojo.Pet;
 import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.pojo.User;
@@ -10,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -38,8 +38,8 @@ public class UserController {
     }
 
 //    登录
-    @GetMapping("/login")
-    public String login(String username, String password,Model model) throws UnsupportedEncodingException {
+    @PostMapping("/login")
+    public String login(String username, String password,Model model) {
 
         User user = userService.findOne(username);
         String msg;
@@ -47,7 +47,8 @@ public class UserController {
             boolean checkPwd = BCrypt.checkpw(password,user.getPassword());
             if (checkPwd){
                 model.addAttribute("user",user);
-                return "redirect:/api/user/?name=" + URLEncoder.encode(username,"UTF-8");
+//                return "redirect:/api/user/?name=" + URLEncoder.encode(username,"UTF-8");
+                return "user";
             }
             msg = "密码错误";
             model.addAttribute("msg",msg);
@@ -70,6 +71,30 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
+
+//    分页查询用户
+    @GetMapping("/selectUser")
+    public ResponseEntity<Map<String,Object>> selectAllUser(Integer pageNum,Integer pageSize){
+        IPage<User> userIPage = userService.findAll(pageNum,pageSize);
+        Map<String,Object> map = new HashMap<>();
+        map.put("user",userIPage);
+        return ResponseEntity.ok(map);
+    }
+
+//    用户更新信息
+    @PostMapping("/updateUser/{userId}")
+    public String updateUser(@PathVariable Integer userId,User user,Model model){
+        user.setId(userId);
+        String salt =  BCrypt.gensalt();
+        String password1 = BCrypt.hashpw(user.getPassword(),salt);
+        user.setPassword(password1);
+        System.out.println(user);
+        model.addAttribute("msg","更新成功");
+        userService.UpdateUser(user);
+
+        return "login";
+    }
+
 
 //    查询宠物
     @RequestMapping("/findPetsByConditions")
@@ -102,4 +127,5 @@ public class UserController {
         model.addAttribute("pet",pet);
         return "pet";
     }
+
 }
