@@ -2,64 +2,71 @@ package com.pet.user.controller;
 
 import com.pet.shopCar.pojo.ShopCar;
 import com.pet.shopCar.pojo.ShopCarItem;
+import com.pet.user.pojo.User;
 import com.pet.user.service.CartService;
-import com.pet.user.utils.RedisUtil;
+import com.pet.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
 
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping
 public class CartController {
     @Autowired
     private CartService cartService;
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/add/{userId}/{productId}/{number}")
-    public ModelAndView addProduct(@PathVariable Integer userId, @PathVariable Integer productId, @PathVariable Integer number) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/cart/getCart/" + userId);
+    @GetMapping("/addCart")
+    public ModelAndView addProduct(Integer userId, Integer productId, Integer number) {
+        System.out.println(userId + "*****" + productId + "--------"+ number);
+        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.addCartItem(userId, productId, number);
         return modelAndView;
     }
 
-    @GetMapping("/getCart/{userId}")
-    public ModelAndView getCart(@PathVariable Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("test");
+    @GetMapping("/getCart")
+    public String getCart(Integer userId, Model model) {
+//        ModelAndView modelAndView = new ModelAndView("cart");
         ShopCar shopCar = cartService.getShopCar(userId);
+        User user = userService.findOne(userId);
         if(shopCar==null){
-            modelAndView.addObject("shopList","您的购物车为空");
+            model.addAttribute("shopList","您的购物车为空");
         }else{
             Map<Integer, ShopCarItem> shopList = shopCar.getCarItems();
-            modelAndView.addObject("shopList", shopList);
+            model.addAttribute("shopList", shopList);
         }
-        return modelAndView;
+        model.addAttribute("user",user);
+        return "cart";
     }
 
-    @GetMapping("/delete/{userId}/{productId}")
-    public ModelAndView deleteProduct(@PathVariable Integer userId, @PathVariable Integer productId) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/cart/getCart/" + userId);
+    @GetMapping("/deleteCart")
+    public ModelAndView deleteProduct(Integer userId, Integer productId) {
+        System.out.println("************");
+        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.deleteCartItem(userId, productId);
         return modelAndView;
     }
 
     @GetMapping("/clear/{userId}")
     public ModelAndView clearCart(@PathVariable Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/cart/getCart/" + userId);
+        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.clearShopCar(userId);
         return modelAndView;
     }
 
-    @GetMapping("/modify/{userId}/{productId}/{number}")
-    public ModelAndView modifyProduct(@PathVariable Integer userId, @PathVariable Integer productId, @PathVariable Integer number) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/cart/getCart/" + userId);
+    @GetMapping("/modify")
+    public ModelAndView modifyProduct(Integer userId,Integer productId,Integer number) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.modifyNumber(userId, productId, number);
         return modelAndView;
     }

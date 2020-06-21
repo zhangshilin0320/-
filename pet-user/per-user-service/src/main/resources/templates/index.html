@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/demo.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/index.css}">
+
+  <title>宠爱</title>
+  <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+  <script type="text/javascript" th:src="@{/api/user/js/gotop.js}"></script>
+</head>
+
+<body>
+  <!-- 侧边 回到顶部 -->
+  <div id="fixed">
+    <div id="cart">
+      <a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">
+        <img th:src="@{/api/user/images/icons/cart.png}" alt="">购物车
+      </a>
+      <a th:if="${user == null}" th:href="@{/api/user/login.html}">
+        <img th:src="@{/api/user/images/icons/cart.png}" alt="">购物车
+      </a>
+
+    </div>
+
+    <div id="top">
+      <img th:src="@{/api/user/images/icons/top.png}" alt="">
+      回到顶部</div>
+  </div>
+  <!-- 头部 -->
+  <div id="header">
+    <div class="header-top w-1200">
+      <div class="logo">
+        <img th:src="@{/api/user/images/icons/logo.png}" alt="">
+        宠爱
+      </div>
+      <div class="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="w-1200">
+        <ul class="header-nav">
+          <li class="active"><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+          <li class="active"><a th:if="${user == null}" th:href="@{/api/user/}" class="active">首页</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+          <li><a th:if="${user == null}" th:href="@{/api/user/login.html}">我的订单</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+          <li><a th:if="${user == null}" th:href="@{/api/user/login.html}">我的购物车</a></li>
+        </ul>
+        <div class="header-user float-right">
+          <img th:src="@{/api/user/images/login/user.png}" alt="">
+          <div th:if="${user == null}">
+            <a th:href="@{/api/user/login.html}">登录</a>
+            <a th:href="@{/api/user/register.html}">注册</a>
+          </div>
+          <div th:if="${user != null}">
+            <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+            <a th:href="@{/api/user/logout}">退出登录</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 核心内容 -->
+  <div class="content w-1200 clearfix">
+    <!-- 广告和轮播图 -->
+    <div class="content-item clearfix">
+      <!-- 广告 -->
+      <div class="advertising">
+        <div class="title">
+          <h2>热门活动</h2>
+          <a href="#">更多&gt;&gt;</a>
+        </div>
+        <ul class="news-hot-list">
+          <li class="item">
+            <p class="photo">
+              <a target="_blank" rel="nofollow" href="http://www.yc.cn/share/activity-224.html">
+                <img src="http://p2.ycw.com/201910/14/23a99ab23329c128a3a690cfdc9cb9b8_s200" alt="换季掉毛大作战" />
+              </a>
+            </p>
+            <div class="title2 ell">
+              <a target="_blank" rel="nofollow" href="http://www.yc.cn/share/activity-224.html">换季掉毛大作战</a>
+            </div>
+            <p class="summary ell">活动时间：2019.10.23-2019.10.31</p>
+            <a target="_blank" rel="nofollow" class="btn" href="http://www.yc.cn/share/activity-224.html"
+            >查看详情</a>
+          </li>
+
+          <li class="item">
+            <p class="photo">
+              <a target="_blank" rel="nofollow" href="http://www.yc.cn/share/activity-223.html"><img
+                  src="http://p2.ycw.com/201910/14/cca0782c95e99c4b990de3dba52ea503_s200" alt="萌宠在身边"></a>
+            </p>
+            <h3 class="title2 ell"><a target="_blank" rel="nofollow"
+                href="http://www.yc.cn/share/activity-223.html">萌宠在身边</a></h3>
+            <p class="summary ell">话题活动时间;10.10-10.17</p>
+            <a target="_blank" rel="nofollow" class="btn" href="http://www.yc.cn/share/activity-223.html"
+             >查看详情</a>
+          </li>
+
+          <li class="item">
+            <p class="photo">
+              <a target="_blank" rel="nofollow" href="http://www.yc.cn/share/activity-222.html"><img
+                  src="http://p2.ycw.com/201909/30/b879637f48b80f2df4da4d733ba2c377_s200" alt="和国旗同框，祝祖国生日快乐"></a>
+            </p>
+            <h3 class="title2 ell"><a target="_blank" rel="nofollow"
+                href="http://www.yc.cn/share/activity-222.html">和国旗同框，祝祖国生日快乐</a></h3>
+            <p class="summary ell">话题活动时间：2019.10.1-10.15</p>
+            <a target="_blank" rel="nofollow" class="btn" href="http://www.yc.cn/share/activity-222.html"
+              >查看详情</a>
+          </li>
+
+
+        </ul>
+      </div>
+      <!-- 轮播图 -->
+      <div class="carousel">
+        <img id="img1" th:src="@{/api/user/images/products/mao1.jpg}" alt="" class="">
+        <img id="img2" th:src="@{/api/user/images/products/mao2.jpg}" alt="" class="d-none">
+        <img id="img3" th:src="@{/api/user/images/products/mao3.jpg}" alt="" class="d-none">
+        <img id="img4" th:src="@{/api/user/images/products/mao4.jpg}" alt="" class="d-none">
+        <div id="pre">&lt;</div>
+        <div id="option">
+          <ul>
+            <li id="option1" class="active"></li>
+            <li id="option2"></li>
+            <li id="option3"></li>
+            <li id="option4"></li>
+          </ul>
+        </div>
+        <div id="next">&gt;</div>
+      </div>
+      <!-- 轮播图脚本 -->
+      <script type="text/javascript">
+        $(function () {
+          var pre = $('#pre');
+          var next = $('#next');
+          var option1 = $('#option1');
+          var option2 = $('#option2');
+          var option3 = $('#option3');
+          var option4 = $('#option4');
+          var img1 = $('#img1');
+          var img2 = $('#img2');
+          var img3 = $('#img3');
+          var img4 = $('#img4');
+
+          var index = 0;
+
+
+          pre.click(function () {
+            index--;
+            index = index % 4
+            if (index < 0) {
+              index += 4
+            }
+            console.log(index)
+            option(index);
+          })
+          next.click(function () {
+            index++;
+            index = index % 4
+            console.log(index)
+            option(index);
+          })
+
+          function option(e) {
+            img1.addClass("d-none");
+            img2.addClass("d-none");
+            img3.addClass("d-none");
+            img4.addClass("d-none");
+            option1.removeClass("active");
+            option2.removeClass("active");
+            option3.removeClass("active");
+            option4.removeClass("active");
+            switch (e) {
+              case 0:
+                img1.removeClass("d-none");
+                option1.addClass("active");
+                break;
+              case 1:
+                img2.removeClass("d-none");
+                option2.addClass("active");
+                break;
+              case 2:
+                img3.removeClass("d-none");
+                option3.addClass("active");
+                break;
+              case 3:
+                img4.removeClass("d-none");
+                option4.addClass("active");
+                break;
+            }
+          }
+        })
+      </script>
+    </div>
+
+    <!-- 热门动物 -->
+    <div class="hot content-item clearfix">
+      <div class="hot-title">
+        <div></div>
+        热门动物
+        <div></div>
+      </div>
+      <div class="category clearfix">
+        <div class="item">
+          <ul>
+            <li th:each="pet : ${pets}" th:if="${pet.number > 3}">
+              <a th:href="@{/api/user/petHtml(name=${pet.name},username=${username})}">
+                <img th:src="@{${pet.image}}" alt="">
+                <div class="item-bottom">
+                  <div class="name"><span th:text="${pet.name}">澳大利亚牧羊犬</span></div>
+                  <div class="price">￥<span th:text="${pet.price}">5000.</span><span>00</span></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- 宠物品种标签 -->
+    <div class="pet-tag content-item clearfix">
+      <ul class="list pet-tag-col">
+        <li>
+          <div class="tag-bg dog">
+            <a href="http://www.yc.cn/pet/gougou">
+              <span class="bg"></span>
+              <span class="txt">狗狗</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-99.html">哈士奇</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-260.html">藏獒</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-97.html">贵宾犬</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-188.html">松狮</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-114.html">吉娃娃</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-178.html">秋田犬</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-112.html">金毛犬</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg cat">
+            <a href="http://www.yc.cn/pet/maomao">
+              <span class="bg"></span>
+              <span class="txt">猫猫</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-317.html">金吉拉</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-276.html">波斯猫</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-389.html">英国短毛猫</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-365.html">折耳猫</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-286.html">布偶猫</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-378.html">暹罗猫</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg rabbit">
+            <a href="http://www.yc.cn/pet/tuzi">
+              <span class="bg"></span>
+              <span class="txt">兔子</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-405.html">金吉拉兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-407.html">波兰兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-466.html">海棠兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-459.html">白兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-423.html">荷兰兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-433.html">垂耳兔</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-403.html">安哥拉兔</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg mouse">
+            <a href="http://www.yc.cn/pet/shulei">
+              <span class="bg"></span>
+              <span class="txt">老鼠</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-513.html">松鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-515.html">天竺鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-490.html">金花鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-510.html">日本小鼯鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-493.html">金丝熊</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-468.html">布丁仓鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-511.html">三线苍鼠</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-499.html">龙猫</a>
+
+
+          </div>
+        </li>
+      </ul>
+      <ul class="list pet-tag-col">
+        <li>
+          <div class="tag-bg bird">
+            <a href="http://www.yc.cn/pet/chongwuniao">
+              <span class="bg"></span>
+              <span class="txt">宠物鸟</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-528.html">白玉鸟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-544.html">芙蓉鸟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-555.html">金丝雀</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-585.html">四喜</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-598.html">绣眼鸟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-610.html">玉鸟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-616.html">猪屎渣</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg turtle">
+            <a href="http://www.yc.cn/pet/chongwugui">
+              <span class="bg"></span>
+              <span class="txt">宠物龟</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-536.html">长寿龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-527.html">巴西彩龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-615.html">中华草龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-539.html">东方泥龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-551.html">红腿象龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-525.html">巴西龟</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg fish">
+            <a href="http://www.yc.cn/pet/chongwuyu">
+              <span class="bg"></span>
+              <span class="txt">宠物鱼</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-584.html">神仙鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-567.html">罗非鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-543.html">福寿鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-614.html">燕鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-611.html">越南鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-584.html">神仙鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-556.html">接吻鱼</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-609.html">鹦鹉鱼</a>
+
+
+          </div>
+        </li>
+        <li>
+          <div class="tag-bg other">
+            <a href="http://www.yc.cn/pet/qita">
+              <span class="bg"></span>
+              <span class="txt">其他</span>
+            </a>
+          </div>
+          <div class="tag-cell">
+
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-532.html">豹纹蜥虎</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-531.html">豹纹守宫</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-533.html">豹纹陆龟</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-545.html">高冠变色龙</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-552.html">河鲀</a>
+
+            <a target="_blank" href="http://www.yc.cn/pet/breed-530.html">豹纹壁虎</a>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- 宠物拍卖 -->
+
+    <!-- 精品推荐 -->
+    <div class="content-item">
+      <div class="recommendation-title">
+        <div></div>
+        精品推荐
+        <div></div>
+      </div>
+      <div class="recommendation clearfix">
+        <ul class="list clearfix">
+          <li th:each="pet : ${pets}">
+            <a th:href="@{/api/user/petHtml(name=${pet.name},username=${username})}">
+              <img th:src="@{${pet.image}}" alt="">
+              <div class="name" th:text="${pet.name}">
+                纯种边境牧羊犬活体边牧幼犬宠物狗狗聪明三通牧羊犬宠物狗狗聪明三通牧羊犬
+              </div>
+              <div class="price">￥<span th:text="${pet.price}">5600.</span><span>00</span></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div id="footer">
+    <div class="footer-content w-1200">
+      <ul class="footer-nav clearfix">
+        <li><a href="#" class="border-0">用户协议</a></li>
+        <li><a href="#">意见反馈</a></li>
+        <li><a href="#">标签合集</a></li>
+        <li><a href="#">网站地图</a></li>
+      </ul>
+      <div>有权链接</div>
+      <hr style="margin: 0;">
+      <div class="text-center">@网站版本信息</div>
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

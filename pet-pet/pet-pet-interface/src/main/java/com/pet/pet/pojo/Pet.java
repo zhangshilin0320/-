@@ -29,4 +29,5 @@ public class Pet implements Serializable {
     private Date releaseTime; //上架时间
     private Date modificationTime; //更新时间
     private Date createTime; //创建时间
+    private String wiki;
 }

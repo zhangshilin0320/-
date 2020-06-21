@@ -1,9 +1,14 @@
 package com.pet.user.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.pet.order.pojo.Order;
+import com.pet.order.service.OrderService;
 import com.pet.pet.pojo.Pet;
+import com.pet.shopCar.pojo.ShopCar;
+import com.pet.shopCar.pojo.ShopCarItem;
 import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.pojo.User;
+import com.pet.user.service.CartService;
 import com.pet.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,31 +31,35 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ProductFeignClient productFeignClient;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/")
-    public String index(String name,Model model){
-        if (name != null){
-            User user = userService.findOne(name);
+    public String index(String username,Model model){
+        if (username != null){
+            User user = userService.findOne(username);
+            model.addAttribute("username",username);
             model.addAttribute("user",user);
         }
         List<Pet> petList = productFeignClient.selectAllPets();
         model.addAttribute("pets",petList);
-//        System.out.println(petList);
         return "index";
     }
 
 //    登录
     @PostMapping("/login")
-    public String login(String username, String password,Model model) {
-
+    public String login(String username, String password,Model model) throws UnsupportedEncodingException {
         User user = userService.findOne(username);
+//        System.out.println(username +"------"+ user);
         String msg;
         if (user != null){
             boolean checkPwd = BCrypt.checkpw(password,user.getPassword());
             if (checkPwd){
                 model.addAttribute("user",user);
-//                return "redirect:/api/user/?name=" + URLEncoder.encode(username,"UTF-8");
-                return "user";
+                return "redirect:/api/user/?username=" + URLEncoder.encode(username,"UTF-8");
+
             }
             msg = "密码错误";
             model.addAttribute("msg",msg);
@@ -58,18 +69,37 @@ public class UserController {
         return "login";
     }
 
+//    退出登录
+    @GetMapping("/logout")
+    public String logout(){
+        return "redirect:/api/user/";
+    }
+
+
 //    注册
-    @GetMapping("/registry/{name}/{password}")
-    public ResponseEntity<String> registry(@PathVariable String name,@PathVariable String password){
+    @PostMapping("/registry")
+    public String registry(String username,String password,String phone,String location,Model model){
+        User user = userService.findOne(username);
+        if(user == null){
+            user = new User(username,password,phone,location);
 //        密码加密
-        String salt =  BCrypt.gensalt();
-        String password1 = BCrypt.hashpw(password,salt);
-        User user = new User(name,password1);
-        int integer = userService.insert(user);
-        if (integer > 0){
-            return ResponseEntity.ok("注册成功");
+            String salt =  BCrypt.gensalt();
+            String password1 = BCrypt.hashpw(user.getPassword(),salt);
+            user.setPassword(password1);
+            userService.insert(user);
+            return "login";
         }
-        return ResponseEntity.notFound().build();
+        model.addAttribute("msg","该用户名已存在");
+        return "register";
+    }
+
+//    跳转到个人信息界面
+    @GetMapping("/personHtml")
+    public String personHtml(Integer userId,Model model){
+        User user = userService.findOne(userId);
+        System.out.println(user);
+        model.addAttribute("user",user);
+        return "person";
     }
 
 //    分页查询用户
@@ -82,17 +112,17 @@ public class UserController {
     }
 
 //    用户更新信息
-    @PostMapping("/updateUser/{userId}")
-    public String updateUser(@PathVariable Integer userId,User user,Model model){
+    @PostMapping("/updateUser")
+    public String updateUser(Integer userId,User user,Model model){
+        System.out.println(userId);
         user.setId(userId);
-        String salt =  BCrypt.gensalt();
-        String password1 = BCrypt.hashpw(user.getPassword(),salt);
-        user.setPassword(password1);
-        System.out.println(user);
+//        String salt =  BCrypt.gensalt();
+//        String password1 = BCrypt.hashpw(user.getPassword(),salt);
+//        user.setPassword(password1);
+//        System.out.println(user);
         model.addAttribute("msg","更新成功");
         userService.UpdateUser(user);
-
-        return "login";
+        return "redirect:/api/user/personHtml/?userId="+userId;
     }
 
 
@@ -121,11 +151,48 @@ public class UserController {
 
 //    跳转到购物页面
     @RequestMapping("/petHtml")
-    public String shopPet(String name,Model model){
+    public String shopPet(String name,String username,Model model){
         Pet pet = productFeignClient.findOne(name);
-//        System.out.println(pet);
+        List<Pet> petList = productFeignClient.selectAllPets();
+        User user = userService.findOne(username);
+        List<String> petImageList = new ArrayList<>();
+        petImageList.add(pet.getImage());
+//        System.out.println(user);
+        model.addAttribute("pets",petList);
         model.addAttribute("pet",pet);
-        return "pet";
+        model.addAttribute("user",user);
+        model.addAttribute("petImageList",petImageList);
+        return "item";
+    }
+//    跳转到订单页面
+    @GetMapping("/order")
+    public String order(String name,String username,Model model){
+//        System.out.println(name);
+        Pet pet = productFeignClient.findOne(name);
+        User user = userService.findOne(username);
+        model.addAttribute("pet",pet);
+        model.addAttribute("username",username);
+        model.addAttribute("user",user);
+        return "dingdan1";
     }
 
+    //    从购物车跳转到订单页面
+    @GetMapping("/CarOrder")
+    public String CarOrder(String name,String username,Model model){
+        Pet pet = productFeignClient.findOne(name);
+        User user = userService.findOne(username);
+        cartService.deleteCartItem(user.getId(),pet.getId());
+        model.addAttribute("pet",pet);
+        model.addAttribute("username",username);
+        model.addAttribute("user",user);
+        return "dingdan1";
+    }
+
+    @GetMapping("/pay")
+    public String pay(String orderId,String username) throws UnsupportedEncodingException {
+        Order order = orderService.selectById(orderId);
+        order.setStatus(2);
+        orderService.updateOrder(order);
+        return "redirect:/api/user/?username=" + URLEncoder.encode(username,"UTF-8");
+    }
 }

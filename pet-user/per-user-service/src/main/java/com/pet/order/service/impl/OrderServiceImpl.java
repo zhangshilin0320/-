@@ -10,6 +10,8 @@ import com.pet.order.service.OrderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 import java.util.Map;
 
 
@@ -46,6 +48,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return this.baseMapper.deleteById(order);
     }
 
+    @Override
+    public List<Order> SelectOrder(Map<String,Object> map) {
+        return this.baseMapper.selectList(queryWrapper(map));
+    }
+
+    @Override
+    public Order selectById(String orderId) {
+        return this.baseMapper.selectById(orderId);
+    }
+
     private QueryWrapper<Order> queryWrapper(Map<String, Object> queryMap){
         QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
         if(queryMap != null){
@@ -68,6 +80,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 //            根据商品Id查询
             if (!StringUtils.isEmpty(queryMap.get("petId"))){
                 queryWrapper.eq("pet_id",queryMap.get("petId"));
+            }
+//            根据是否评价查询
+            if (!StringUtils.isEmpty(queryMap.get("buyerRate"))){
+                queryWrapper.eq("buyer_rate",queryMap.get("buyerRate"));
             }
         }
         return queryWrapper;

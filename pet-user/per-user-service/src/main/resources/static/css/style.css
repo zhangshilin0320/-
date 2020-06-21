@@ -1,0 +1,144 @@
+@charset "utf-8";
+
+.car-headers-menu {
+  border-bottom: 1px solid #f5f5f5;
+  padding: 0 15px;
+  width: 990px;
+  background-color: #cccccc;
+}
+
+.panel-body {
+  padding: 15px 0;
+}
+
+#checkAll {
+  vertical-align: text-bottom;
+}
+
+.car-menu {
+  text-align: center;
+  padding: 0;
+  border-right: 1px solid #ffffff;
+}
+
+/*
+  商品区
+ * */
+
+.goods-content {
+  margin-top: 15px;
+}
+
+.goods-content .goods-item {
+  margin-top: 20px;
+}
+
+.goods-content .goods-item .goods-operate2 {
+  display: block !important;
+  padding: 10px 11px;
+  border-right: 1px solid #CCCCCC;
+}
+
+.goods-content .goods-item .car-goods-info {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-right: 1px solid #CCCCCC;
+}
+
+.goods-content .goods-item .goods-image-column img,
+.goods-content .goods-item .goods-image-column span {
+  display: block;
+  float: left;
+}
+
+.goods-content .goods-item .goods-image-column span {
+  width: calc(100% - 100px);
+  box-sizing: border-box;
+  text-indent: 2rem;
+  line-height: 25px;
+  padding: 10px;
+}
+
+.goods-price {
+  color: red;
+  font-weight: bolder;
+}
+
+.form-control {
+  text-align: center;
+}
+
+.single-total {
+  color: red;
+  font-weight: bold;
+}
+
+.goods-params {
+  color: darkgray;
+}
+
+.goods-kefu {
+  font-size: 12px;
+  color: #000000;
+}
+
+.bottom-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-menu #checkAllBottom {
+  vertical-align: text-bottom;
+}
+
+#deleteMulty {
+  color: cornflowerblue;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+
+.bottom-menu-include {
+  background: #e5e5e5;
+}
+
+#selectGoodsCount {
+  color: orangered;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+#selectGoodsMoney {
+  color: orangered;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.card-default .submitData {
+  background: orangered;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  font-weight: bolder;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.card-default .submitDis {
+  background: #B0B0B0;
+  cursor: no-drop;
+}
+
+.card-default {
+  position: relative;
+}
+
+.order-title {
+  margin-top: 10px;
+  padding: 10px;
+}

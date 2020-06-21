@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+
+    <link rel="stylesheet" th:href="@{/api/user/css/demo.css}"/>
+    <link rel="stylesheet" th:href="@{/api/user/css/order.css}">
+    <link rel="stylesheet" th:href="@{/api/user/css/style.css}">
+    <title>购物</title>
+    <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/api/user/js/order.js}"></script>
+</head>
+
+<body>
+
+<div id="header">
+    <div class="header-top w-1200">
+        <div class="logo">
+            <img th:src="@{/api/user/images/icons/logo.png}" alt="">
+            宠爱
+        </div>
+        <div class="search">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                    <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="w-1200">
+            <ul class="header-nav">
+                <li><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+                <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+                <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+            </ul>
+            <div class="header-user float-right">
+                <img th:src="@{/api/user/images/login/user.png}" alt="">
+                <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+                <a href="#">退出登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content w-1200 clearfix">
+    <div class="order-sidebar">
+        <ul>
+            <li><a th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+            <li class="active"><a th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+        </ul>
+    </div>
+
+    <div id="myCart" class="order-right">
+
+        <!-- 表头 -->
+        <div class="car-headers-menu">
+            <div class="row">
+                <div class="col-md-1 car-menu">
+                    <label>
+                        <input type="checkbox" id="check-goods-all"/>
+                        <span id="checkAll">全选</span>
+                    </label>
+                </div>
+                <div class="col-md-3 car-menu">商品信息</div>
+                <div class="col-md-3 car-menu">商品描述</div>
+                <div class="col-md-1 car-menu">单价</div>
+                <div class="col-md-2 car-menu">数量</div>
+                <div class="col-md-1 car-menu">金额</div>
+                <div class="col-md-1 car-menu">操作</div>
+            </div>
+        </div>
+
+        <div class="goods-content cart-content">
+            <input type="hidden" name="userId" id="userId" th:value="${user.id}">
+            <div class="goods-item" th:each="item:${shopList}">
+                <input type="hidden" name="productId" class="productId" th:value="${item.value.petId}">
+                <div class="card">
+                    <div class="row m-0">
+                        <div class="col-md-1 car-goods-info">
+                            <label><input type="checkbox" class="goods-list-item"/></label>
+                        </div>
+                        <div class="col-md-3 car-goods-info goods-image-column">
+                            <img class="goods-image"  th:src="@{${item.value.image}}"
+                                 style="width: 100px; height: 100px;"/>
+                            <span id="goods-info1" th:text="${item.value.petName}">item.goodsInfo</span>
+                        </div>
+                        <div class="col-md-3 car-goods-info goods-params" th:text="${item.value.description}">
+                            item.goodsParams
+                        </div>
+                        <div class="col-md-1 car-goods-info goods-price">
+                            <span>￥</span><span class="single-price" th:text="${item.value.price}">item.price</span>
+                        </div>
+                        <div class="col-md-2 car-goods-info goods-counts">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default car-decrease">-</button>
+                                </div>
+                                <input type="text" class="form-control goods-count" th:value="${item.value.number}">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default car-add">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 car-goods-info goods-money-count">
+                            <span>￥</span>
+                            <span class="single-total" th:text="${item.value.price}*${item.value.number}">item.singleGoodsMoney</span>
+                        </div>
+
+                        <div class="col-md-1 car-goods-info goods-operate2">
+                            <button type="button" class="btn btn-primary mb-1">
+                                <a th:href="@{/api/user/CarOrder(name=${item.value.petName},username=${user.username})}">下单</a>
+                            </button><br>
+                            <button type="button" class="btn btn-danger mb-1">
+                                <a th:href="@{/api/user/deleteCart/(userId=${user.id},productId=${item.value.petId})}">删除</a>
+                            </button>
+                            <!--                                    item-delete-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-default mt-4">
+            <div class="row m-0 bottom-menu-include">
+                <div class="col-md-1 check-all-bottom bottom-menu">
+                    <label>
+                        <input type="checkbox" id="checked-all-bottom"/>
+                        <span id="checkAllBottom">全选</span>
+                    </label>
+                </div>
+                <div class="col-md-1 bottom-menu">
+            <span id="deleteMulty">
+              删除
+            </span>
+                </div>
+                <div class="col-md-5 bottom-menu">
+
+                </div>
+                <div class="col-md-2 bottom-menu">
+                    <span>已选商品 <span id="selectGoodsCount">0</span> 件</span>
+                </div>
+                <div class="col-md-2 bottom-menu">
+                    <span>合计：<span id="selectGoodsMoney">0.00</span></span>
+                </div>
+                <div class="col-md-1 bottom-menu submitData submitDis">
+                    结算
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,17 +1,20 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
-      <Languages>
-<<<<<<< HEAD
-        <language minSize="89" name="Java" />
-      </Languages>
-    </inspection_tool>
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="1">
-            <item index="0" class="java.lang.String" itemvalue="width" />
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="height" />
+            <item index="1" class="java.lang.String" itemvalue="p-id" />
+            <item index="2" class="java.lang.String" itemvalue="name" />
+            <item index="3" class="java.lang.String" itemvalue="value" />
+            <item index="4" class="java.lang.String" itemvalue="placeholder" />
+            <item index="5" class="java.lang.String" itemvalue="aria-labelledby" />
+            <item index="6" class="java.lang.String" itemvalue="data-dismiss" />
+            <item index="7" class="java.lang.String" itemvalue="aria-label" />
+            <item index="8" class="java.lang.String" itemvalue="aria-hidden" />
+            <item index="9" class="java.lang.String" itemvalue="onselectstart" />
           </list>
         </value>
       </option>
@@ -20,24 +23,19 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="7">
+          <list size="8">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
             <item index="3" class="java.lang.String" itemvalue="noscript" />
             <item index="4" class="java.lang.String" itemvalue="embed" />
             <item index="5" class="java.lang.String" itemvalue="script" />
-            <item index="6" class="java.lang.String" itemvalue="svg" />
+            <item index="6" class="java.lang.String" itemvalue="div" />
+            <item index="7" class="java.lang.String" itemvalue="a" />
           </list>
         </value>
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
-=======
-        <language minSize="156" name="Java" />
-      </Languages>
-    </inspection_tool>
-    <inspection_tool class="SpringJavaInjectionPointsAutowiringInspection" enabled="true" level="WARNING" enabled_by_default="true" />
->>>>>>> upstream/zsl
   </profile>
 </component>

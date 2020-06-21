@@ -36,8 +36,34 @@ spring:
     password: 123456
 eureka:
   client:
+    healthcheck:
+      enabled: true
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+#    fetch-registry: false
   instance:
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 10
+feign:
+  client:
+    config:
+      default:
+        connectTime: 10000  # 链接时间
+        readTimeOut: 10000  # 链接超时时间配置
+      #日志级别的指定
+      pet-service:
+        loggerLeval: FULL
+  logging:
+    leval:
+      com.pet.user.feign.ProductFeignClient: debug
+#请求时间压缩 支持对请求和响应的GZIP的压缩，可以减少通信过程中的性能损耗
+  compression:
+    request:
+      enabled: true # 开启请求压缩
+      mime-types: text/html,application/yml,application/json
+      min-request-size: 2048 #设置触发压缩的大小的下限。
+    response:
+      enabled: true # 开启相应压缩
+ribbon:
+  eureka:
+    enabled: true

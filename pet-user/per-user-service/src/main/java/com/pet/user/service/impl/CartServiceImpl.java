@@ -1,7 +1,9 @@
 package com.pet.user.service.impl;
 
+import com.pet.pet.pojo.Pet;
 import com.pet.shopCar.pojo.ShopCar;
 import com.pet.shopCar.pojo.ShopCarItem;
+import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.service.CartService;
 import com.pet.user.service.UserService;
 import com.pet.user.utils.RedisUtil;
@@ -19,7 +21,8 @@ public class CartServiceImpl implements CartService {
     public static final String cartKeyPrefix = "Cart_";
     @Autowired
     private RedisUtil redisUtil;
-
+    @Autowired
+    private ProductFeignClient productFeignClient;
     /**
      * 获取购物车
      *
@@ -115,11 +118,12 @@ public class CartServiceImpl implements CartService {
     private ShopCarItem getShopItem(Integer productId, Integer number) {
         //TODO 从数据库中根据货物id查询出相对应的货物信息
         ShopCarItem cartItem = new ShopCarItem();
+        Pet pet = productFeignClient.findIdOne(productId);
         cartItem.setPetId(productId);
-        cartItem.setPetName("哈巴狗");
-        cartItem.setDescription("精品");
-        cartItem.setImage("http://dadfadf.cn");
-        cartItem.setPrice(new BigDecimal(10000));
+        cartItem.setPetName(pet.getName());
+        cartItem.setDescription(pet.getColor());
+        cartItem.setImage(pet.getImage());
+        cartItem.setPrice(new BigDecimal(pet.getPrice()));
         cartItem.setNumber(number);
         return cartItem;
     }

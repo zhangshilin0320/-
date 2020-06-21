@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"
+lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/demo.css}" />
+  <link rel="stylesheet" th:href="@{/api/user/css/item.css}" />
+  <link rel="stylesheet" th:href="@{/api/user/css/Shopping.css}" />
+  <title>购物</title>
+  <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+  <script type="text/javascript" th:src="@{/api/user/js/Shopping.js}"></script>
+  <script type="text/javascript" th:src="@{/api/user/js/bootstrap.min.js}"></script>
+
+
+
+</head>
+
+<body>
+
+  <div id="header">
+    <div class="header-top w-1200">
+      <div class="logo">
+        <img th:src="@{/api/user/images/icons/logo.png}" alt="">
+        宠爱
+      </div>
+      <div class="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="w-1200">
+        <ul class="header-nav">
+          <li><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+          <li><a th:if="${user == null}" th:href="@{/api/user/}" class="active">首页</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+          <li><a th:if="${user == null}" th:href="@{/api/user/login.html}">我的订单</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+          <li><a th:if="${user == null}" th:href="@{/api/user/login.html}">我的购物车</a></li>
+        </ul>
+        <div class="header-user float-right">
+          <img th:src="@{/api/user/images/login/user.png}" alt="">
+          <div th:if="${user == null}">
+            <a th:href="@{/api/user/login.html}">登录</a>
+            <a href="#">注册</a>
+          </div>
+          <div th:if="${user != null}">
+            <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+            <a href="#">退出登录</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="div_box" class="clearfix">
+    <div class="wrap" id="wrap">
+      <div class="smallImg imgBox">
+        <!-- 图片展示小图 -->
+        <img th:src="@{${pet.image}}" alt="chothes" />
+
+        <!-- 阴影遮挡表示放大图片 -->
+        <div id="shadow">
+          <table border="1px" width="100px" height="100px">
+            <tr>
+              <td class="td_top td_left"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top"></td>
+              <td class="td_top td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_right"></td>
+            </tr>
+            <tr>
+              <td class="td_left td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_bottom"></td>
+              <td class="td_right td_bottom"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- 图片展示大图 -->
+      <div class="bigImg imgBox">
+        <img th:src="@{/api/user/images/yi1.jpg}" width="800" height="800" alt="chothes" />
+      </div>
+
+      <div id="thumbnail">
+        <div id="pre">&lt;</div>
+        <ul class="list clearfix">
+        </ul>
+        <div id="next">&gt;</div>
+      </div>
+    </div>
+    <!-- 缩略图选择js代码 -->
+    <script th:inline="javascript">
+      $(function () {
+        var index = 0;
+
+        //此处放需要展示的图片列表
+        var picList = [[${petImageList}]];
+        var length = picList.length;
+        // 初始化
+        for (let i = 0; i < length; i++) {
+          $('#thumbnail ul').append('<li class="item"><img src="' + picList[i] + '" /></li>');
+        };
+        var pre = $('#pre');
+        var next = $('#next');
+        var pics = $('#thumbnail ul li');
+        var smallImg = $('#wrap .smallImg img');
+        var bigImg = $('#wrap .bigImg img');
+
+        // 为所有的缩略图添加点击事件
+        for (let i = 0; i < length; i++) {
+          let pic = pics.eq(i);
+          pic.click(function () {
+            picClick(i)
+          });
+          pic.mousemove(function () {
+            picClick(i)
+          });
+          pic.removeClass('active')
+          pic.children('img').attr('src', picList[i]);
+        }
+        pics.eq(index).addClass('active');
+        smallImg.attr('src', picList[index]);
+        bigImg.attr('src', picList[index]);
+
+
+        //点击事件发生时实现的逻辑
+        function picClick(e) {
+          // 先移除class active样式
+          for (let i = 0; i < length; i++) {
+            let pic = pics.eq(i);
+            pic.removeClass('active');
+          }
+          // 为点击的缩略图添加active样式
+          pics.eq(e).addClass('active');
+          // 更新大图展示图片为选定图片
+          smallImg.attr('src', picList[e]);
+          bigImg.attr('src', picList[e]);
+        };
+      })
+    </script>
+    <div id="detail">
+      <div id="title" class="detail-item ">
+        <span id="div_box-right-1-span_2" th:text="${pet.name}">蓝猫幼猫纯种英短美短蓝白银渐层折耳短腿宠物猫咪活幼体小猫活物</span><br>
+<!--		<span id="div_box-right-1-span_2">收藏加购，闪电发货,限时优惠！！</span>-->
+      </div>
+      <div id="price" class="detail-item clearfix">
+        <span class="detail-item-title">价格</span>
+        <span class="detail-item-right">￥<span th:text="${pet.price}">200.00</span></span>
+      </div>
+      <div id="carriage" class="detail-item clearfix">
+        <span class="detail-item-title">运费</span>
+        <div class="carriage-item detail-item-right">
+          <span>山西太原</span>
+          <span>至</span>
+          <!-- 选择收货地点功能 -->
+          <a id="destination" class="clearfix" href="#"><span id="destinationText">太原</span>
+            <svg t="1588655621027" class="icon-gw" viewBox="0 0 1024 1024" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" p-id="1794" width="200" height="200">
+              <path
+                d="M512.1958953 678.40936215l-430.32155187-430.31418734c-18.07244469-18.08717365-47.4066589-18.08717365-65.48057651 0-18.08864655 18.07244469-18.08864655 47.4066589 0 65.48057649l463.06110366 463.06110364c18.07244469 18.08717365 47.4066589 18.08717365 65.4805765 0l463.05963077-463.06110364c9.04358683-9.03769525 13.56685314-20.89009642 13.56685313-32.7395518s-4.52326631-23.70185657-13.56685313-32.73955181c-18.07244469-18.08717365-47.4066589-18.08717365-65.48057651 0l-430.32007895 430.31418738z"
+                fill="#515151" p-id="1795"></path>
+            </svg>
+            <div id="selectDestination" class="d-none">
+              <div class="city active">太原</div>
+              <div class="city">大同</div>
+              <div class="city">阳泉</div>
+              <div class="city">长治</div>
+              <div class="city">晋城</div>
+              <div class="city">朔州</div>
+              <div class="city">晋中</div>
+              <div class="city">运城</div>
+              <div class="city">忻州</div>
+              <div class="city">临汾</div>
+              <div class="city">吕梁</div>
+            </div>
+          </a>
+        </div>
+        <script type="text/javascript">
+          $(function () {
+            var destination = $('#destination');
+            var selectDestination = $('#selectDestination');
+            destination.mouseover(function () {
+              selectDestination.removeClass('d-none');
+            });
+            destination.mouseout(function () {
+              selectDestination.addClass('d-none');
+            });
+            selectDestination.on('click', '.city', function () {
+              $(this).siblings().removeClass('active').end().addClass('active');
+              $('#destinationText').text($(this).siblings().removeClass('active').end().text())
+            });
+          })
+        </script>
+      </div>
+      <div id="discount" class="detail-item clearfix">
+        <div class="discount-item">
+          <a href="#">
+            <span>月销量<span style="color: #ff0036;font-weight: 700;">76</span></span>
+          </a>
+        </div>
+        <span class="cut-off-line">|</span>
+        <div class="discount-item">
+          <a href="#">
+            <span>累计评价<span style="color: #ff0036;font-weight: 700;">76</span></span>
+          </a>
+        </div>
+        <span class="cut-off-line">|</span>
+        <div class="discount-item">
+          <a href="#">
+            <span>送天猫积分<span style="color: green;font-weight: 700;">34</span></span>
+          </a>
+        </div>
+      </div>
+      <div id="month" class="detail-item clearfix">
+        <span class="detail-item-title">月份</span>
+        <div class="detail-item-right">
+          <ul class="list">
+            <li><a>1~3月</a></li>
+            <li><a>3~6月</a></li>
+            <li><a>6~9月</a></li>
+            <li><a>9~12月</a></li>
+            <li><a>12月以上</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div id="option" class="detail-item clearfix">
+        <span class="detail-item-title">选择</span>
+        <!-- TODO 自动添加 -->
+        <div class="detail-item-right">
+          <div class="option-item" th:each="petImage:${petImageList}">
+            <img th:src="@{${petImage}}" width="38px" height="38px" /></div>
+        </div>
+      </div>
+      <div id="amount" class="detail-item clearfix" onselectstart="return false;">
+        <span class="detail-item-title">数量</span>
+        <!-- 点击添加数量 -->
+        <div class="detail-item-right">
+          <div id="count">1</div>
+          <div id="addAndMinus">
+            <div id="add">
+              <svg t="1588663432940" style="width: 0.7em;height: 0.7em;font-weight: 700;" viewBox="0 0 1024 1024"
+                version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2160" width="200" height="200">
+                <path
+                  d="M511.867 399.019l292.16 292.155c12.27 12.28 32.186 12.28 44.457 0 12.28099999-12.27 12.281-32.186 0-44.457l-314.388-314.388c-12.27-12.28-32.186-12.28-44.457 0l-314.387 314.388c-6.14 6.136-9.211 14.183-9.211 22.228s3.071 16.092 9.21099999 22.228c12.27 12.28 32.186 12.28 44.45700001 1e-8l292.159-292.15500001z"
+                  p-id="2161" fill="#bfbfbf"></path>
+              </svg>
+            </div>
+            <div id="minus">
+              <svg t="1588663543242" style="width: 0.7em;height: 0.7em;font-weight: 700;" viewBox="0 0 1024 1024"
+                version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2343" width="200" height="200">
+                <path
+                  d="M512.133 624.981l-292.16-292.155c-12.27-12.28-32.186-12.28-44.457 0-12.281 12.27-12.281 32.186 0 44.457l314.388 314.388c12.27 12.28 32.186 12.28 44.457 0l314.387-314.388c6.14-6.136 9.211-14.183 9.211-22.228s-3.071-16.092-9.211-22.228c-12.27-12.28-32.186-12.28-44.457 0l-292.159 292.155z"
+                  p-id="2344" fill="#bfbfbf"></path>
+              </svg>
+            </div>
+          </div>
+          <span style="color: #838383;line-height: 42px;font-size: 12px;float: left;margin-left: 10px;">件</span>
+        </div>
+        <script type="text/javascript">
+          $(function () {
+            var count = $('#count');
+            var add = $('#add');
+            var minus = $('#minus');
+            var int = 1;
+            add.click(function () {
+              int = count.text();
+              count.text(parseInt(int) + 1);
+            });
+            minus.click(function () {
+              int = count.text();
+              count.text(parseInt(int) - 1);
+            });
+          })
+        </script>
+      </div>
+      <!-- TODO 点击购买按钮后 生成确认弹窗 使用form提交 -->
+      <div id="btn" class="detail-item clearfix">
+        <div id="btn-pay" th:if="${user != null}"><span><a  th:href="@{/api/user/order(name=${pet.name},username=${user.username})}">立即购买</a></span></div>
+        <div id="btn-pay" th:if="${user == null}"><span><a  th:href="@{/api/user/login.html}">立即购买</a></span></div>
+        <div id="btn-cart">
+          <svg t="1588664645155" style="width:1em;height: 1em;" viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" p-id="7377" width="200" height="200">
+            <path
+              d="M347.136 783.36q19.456 0 36.864 7.168t30.72 19.968 20.48 30.208 7.168 36.864-7.168 36.864-20.48 30.208-30.72 20.48-36.864 7.68q-20.48 0-37.376-7.68t-30.208-20.48-20.48-30.208-7.168-36.864 7.168-36.864 20.48-30.208 30.208-19.968 37.376-7.168zM773.12 785.408q19.456 0 37.376 7.168t30.72 19.968 20.48 30.208 7.68 36.864-7.68 36.864-20.48 30.208-30.72 20.48-37.376 7.68-36.864-7.68-30.208-20.48-20.48-30.208-7.68-36.864 7.68-36.864 20.48-30.208 30.208-19.968 36.864-7.168zM945.152 203.776q28.672 0 44.544 7.68t22.528 18.944 6.144 24.064-3.584 22.016-12.8 37.888-22.016 62.976-24.064 68.096-17.92 53.248q-13.312 40.96-33.792 56.832t-50.176 15.872l-34.816 0-66.56 0-87.04 0-95.232 0-253.952 0 15.36 92.16 516.096 0q49.152 0 49.152 41.984 0 20.48-9.728 35.328t-38.4 14.848l-49.152 0-95.232 0-117.76 0-119.808 0-98.304 0-56.32 0q-20.48 0-34.304-9.216t-23.04-24.064-14.848-32.256-8.704-32.768q-1.024-6.144-5.632-29.696t-11.264-58.88-14.848-78.848-16.384-87.552q-19.456-103.424-44.032-230.4l-76.8 0q-15.36 0-25.6-7.68t-16.896-18.432-9.216-23.04-2.56-22.528q0-20.48 13.824-33.792t37.376-13.312l22.528 0 20.48 0 25.6 0 34.816 0q20.48 0 32.768 6.144t19.456 15.36 10.24 19.456 5.12 17.408q2.048 8.192 4.096 23.04t4.096 30.208q3.072 18.432 6.144 38.912l700.416 0z"
+              fill="#ffffff" p-id="7378"></path>
+          </svg>
+          <a th:if="${user != null}" th:href="@{/api/user/addCart/(userId=${user.id},productId=${pet.id},number = 1)}">加入购物车</a>
+          <a th:if="${user == null}" th:href="@{login.html}">加入购物车</a>
+		 </div>
+      </div>
+      <div id="promise" class="detail-item clearfix">
+        <div class="detail-item-title">服务承诺</div>
+        <div class="detail-item-right">
+          <span>不支持七天无理由退换</span>
+          <span>正品保证</span>
+          <span>极速退款</span>
+          <span>赠运费险</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail clearfix">
+    <div class="img">
+       <img th:src="@{${pet.image}}" alt="">
+    </div>
+
+    <div class="info">
+      <h5>相关资料</h5>
+      <div>宠物名: <span th:text="${pet.name}">xiao</span></div>
+      <div>生源地:<span th:text="${pet.location}">xiao</span></div>
+      <div>体型:<span th:text="${pet.body}">xiao</span></div>
+      <div>体重:<span th:text="${pet.weight}">xiao</span></div>
+      <div>百科信息:<span th:text="${pet.wiki}">xiao</span></div>
+      <!-- 需要啥就自己写点啥吧 -->
+    </div>
+  </div>
+  <!-- 相似推荐 -->
+  <div class="content-item">
+    <div class="recommendation-title">
+      <div></div>
+      相似推荐
+      <div></div>
+    </div>
+    <div class="recommendation clearfix">
+      <ul class="list clearfix">
+       <li th:each="pet1 : ${pets}" th:if="${pet1.typeid == pet.typeid}">
+         <a th:href="@{/api/user/petHtml(name=${pet1.name},username=${user.username})}">
+           <img th:src="@{${pet1.image}}" alt="">
+           <div class="name" th:text="${pet1.name}">
+              纯种边境牧羊犬活体边牧幼犬宠物狗狗聪明三通牧羊犬宠物狗狗聪明三通牧羊犬
+           </div>
+           <div class="price">￥<span th:text="${pet1.price}">5600.</span><span>.00</span></div>
+         </a>
+       </li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,91 +1,304 @@
-.content-right {
+.advertising {
   float: right;
   width: 340px;
   height: 400px;
   margin-left: 10px;
-  background-color: #000;
+  padding: 20px;
+  background-color: #fff;
 }
 
-.content-left {
+.advertising .title {
+  min-height: 34px;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+
+.news-hot-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.news-hot-list .item {
+  padding: 20px 0 0px 110px;
+  height: 110px;
+  position: relative;
+}
+
+.news-hot-list .item .photo {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  left: 0px;
+  top: 20px;
+}
+
+.news-hot-list .item .photo img {
+  width: 100%;
+}
+
+.news-hot-list .item .title2 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.news-hot-list .item .title2 a {
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.news-hot-list .item .summary {
+  height: 20px;
+  margin: 5px 0 20px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #434343;
+  width: 100%;
+  display: block;
+}
+
+.news-hot-list .item .btn {
+  padding: 0;
+  background: #fff;
+  color: #666;
+  border: 1px solid #d6d6d6;
+  width: 95px;
+  height: 24px;
+  line-height: 25px;
+  text-align: center;
+  position: absolute;
+}
+
+.ell {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.advertising .title h2 {
+  margin: 0;
+  min-width: 60px;
+  min-height: 20px;
+  position: relative;
+  float: left;
+  font-size: 20px;
+  padding-bottom: 13px;
+  border-bottom: 2px solid #f2473d;
+}
+
+.advertising .title a {
+  float: right;
+  width: 60px;
+  text-align: right;
+  color: #9A9A9A;
+  font-size: 12px;
+}
+
+.carousel {
   float: left;
   width: 850px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.carousel img {
+  width: 850px;
+  height: 400px;
+}
+
+
+
+#next,
+#pre {
+  position: absolute;
+  top: 187px;
+  width: 20px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 20px;
+  color: #cac9c9;
+  opacity: .8;
+  background-color: #000;
+  cursor: pointer;
+}
+
+#pre {
+  left: 0;
+}
+
+#next {
+  right: 0;
+}
+
+#option {
+  width: 100px;
+  height: 20px;
+
+  position: absolute;
+  bottom: 0;
+  left: 375px;
+  border-radius: 5px;
+}
+
+#option ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 10px;
+}
+
+#option ul li {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  float: left;
+  margin: 5px;
+  background-color: #fff;
+}
+
+#option ul li.active {
+  background-color: yellow;
+}
+
+.content-item {
+  margin-top: 10px;
+}
+
+.hot {
+  width: 1200px;
   background-color: #fff;
   border-radius: 5px;
 }
 
-.content-left>.title {
+.hot .hot-title {
   margin: 0 10px;
   padding: 10px 0;
   border-bottom: #cccccc solid 1px;
   font-size: 30px;
   font-weight: bolder;
   text-align: center;
+  position: relative;
 }
 
-.content-left .category {
-  width: 280px;
-  float: left;
+.hot .hot-title>div:first-child,
+.hot .hot-title>div:nth-child(2) {
+  width: 120px;
+  height: 10px;
+  margin: 20px 0px;
+  background-color: greenyellow;
+  position: absolute;
+  bottom: 10px;
+}
+
+.hot .hot-title>div:first-child {
+  left: 400px;
+}
+
+.hot .hot-title>div:nth-child(2) {
+  right: 400px;
+}
+
+.hot .category {
   padding-bottom: 10px;
   margin-top: 10px;
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
 }
 
-.content-left .category>.title {
+.hot .category .title {
+  height: 40px;
   margin: 0 10px;
-  padding: 10px 0;
   border-bottom: #cccccc solid 1px;
+
+}
+
+.hot .category .title img,
+.hot .category .title span {
+  width: 40px;
+  height: 40px;
+}
+
+.hot .category .title span {
   font-size: 14px;
   text-align: center;
   font-weight: bolder;
 }
 
-.content-left .category .item ul {
-  width: 260px;
+
+
+.hot .category .item ul {
   list-style: none;
   padding-left: 0;
-  margin: 0 auto;
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
 }
 
-.content-left .category .item ul li {
-  width: 125px;
-  height: 200px;
+.hot .category .item ul li {
+  width: 190px;
+  height: 250px;
   float: left;
-  margin-top: 5px;
-  margin-right: 5px;
+  margin: 5px;
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
 }
 
-.content-left .category .item ul li a {
+.hot .category .item ul li a {
   text-decoration: none;
   color: black;
 }
 
-.content-left .category .item ul li a img {
-  width: 115px;
-  height: 120px;
-  margin: 5px;
+.hot .category .item ul li a img {
+  width: 150px;
+  height: 150px;
+  margin: 10px 20px;
   float: left;
   border-radius: 5px;
 }
 
-.content-left .category .item .name {
-  font-size: 12px;
-  margin-left: 5px;
+.hot .category .item ul li a>div {
+  width: 150px;
+  margin: 0px 20px;
 }
 
-.content-left .category .item .price {
-  text-align: right;
-  margin-right: 10px;
+.hot .category .item .item-bottom {
+  width: 150px;
+  margin: 0 20px;
 }
 
-.content-left .category .item .price span {
-  color: red;
+.hot .category .item .name {
+  width: 150px;
+  height: 24px;
+  font-size: 14px;
+  color: #666666;
+  overflow: hidden;
 }
 
-.content-left .category .item .shop {
+.hot .category .item .price {
+  font-size: 14px;
+  line-height: 18px;
+  height: 18px;
+  color: #e1251b;
+  margin-top: 10px;
+}
+
+.hot .category .item .price span:nth-child(1) {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: arial, sans-serif;
+}
+
+.hot .category .item .price span:nth-child(2) {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: arial, sans-serif;
+}
+
+.hot .category .item .shop {
   font-size: 12px;
   color: #999999;
   text-align: right;
@@ -98,7 +311,6 @@
   height: 260px;
   background-color: #fff;
   margin: 10px auto;
-
 }
 
 .paimai .title {
@@ -106,7 +318,6 @@
   height: 260px;
   background-color: #e83632;
   float: left;
-
 }
 
 .paimai .title p {
@@ -184,4 +395,166 @@
   line-height: 25px;
   float: left;
   text-align: center;
+}
+
+
+.pet-tag {
+  background-color: #fff;
+  padding: 25px;
+}
+
+.pet-tag .list li {
+  width: 270px;
+  margin-right: 10px;
+}
+
+.pet-tag .tag-bg {
+  float: left;
+  width: 40px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold
+}
+
+.pet-tag .tag-cell {
+  width: 210px;
+  font-size: 12px;
+  float: left;
+  margin-left: 10px;
+}
+
+.pet-tag .tag-cell a {
+  margin: 5px;
+  display: block;
+  float: left;
+  color: #000;
+  cursor: pointer;
+}
+
+.pet-tag .tag-cell a:hover {
+  color: #f2473d;
+}
+
+.tag-bg .bg {
+  display: block;
+  background-image: url(../images/pets/tag_img.png);
+  background-repeat: no-repeat;
+  padding-top: 37px;
+}
+
+.tag-bg .txt {
+  font-size: 13px;
+  font-weight: bold;
+  color: #000;
+}
+
+.tag-bg.cat .bg {
+  width: 37px;
+  background-position: 0 0;
+}
+
+.tag-bg.dog .bg {
+  width: 37px;
+  background-position: -37px 0;
+}
+
+.tag-bg.rabbit .bg {
+  width: 37px;
+  background-position: -276px 0;
+}
+
+.tag-bg.mouse .bg {
+  width: 37px;
+  background-position: -234px 0;
+}
+
+.tag-bg.bird .bg {
+  width: 37px;
+  background-position: -74px 0;
+}
+
+.tag-bg.turtle .bg {
+  width: 37px;
+  background-position: -152px 0;
+}
+
+.tag-bg.fish .bg {
+  width: 37px;
+  background-position: -110px 0;
+}
+
+.tag-bg.other .bg {
+  width: 37px;
+  background-position: -193px 0;
+}
+
+
+
+.recommendation-title {
+  margin: 0 10px;
+  padding: 10px 0;
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  position: relative;
+}
+
+.recommendation-title>div:first-child,
+.recommendation-title>div:nth-child(2) {
+  width: 120px;
+  height: 10px;
+  margin: 20px 0px;
+  background-color: greenyellow;
+  position: absolute;
+  bottom: 10px;
+}
+
+.recommendation-title>div:first-child {
+  left: 400px;
+}
+
+.recommendation-title>div:nth-child(2) {
+  right: 400px;
+}
+
+.recommendation .list li {
+  width: 230px;
+  height: 322px;
+  margin: 0 5px 10px;
+  position: relative;
+  float: left;
+  background-color: #fff;
+}
+
+.recommendation .list li img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 30px 40px 40px;
+}
+
+.recommendation .list li .name {
+  padding: 0 20px;
+  height: 48px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: left;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.recommendation .list li .price {
+  color: #e1251b;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: 600;
+  margin: 0 20px;
+}
+
+.recommendation .list li .price span:nth-child(1) {
+  font-size: 20px;
 }

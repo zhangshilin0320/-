@@ -18,7 +18,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
 
     @Override
     public User findOne(String username) {
-        return this.baseMapper.selectOne(new QueryWrapper<User>().eq("name",username));
+        return this.baseMapper.selectOne(new QueryWrapper<User>().eq("username",username));
     }
 
     @Override
@@ -35,5 +35,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
     @Override
     public void UpdateUser(User user) {
         this.baseMapper.updateById(user);
+    }
+
+    @Override
+    public User findOne(Integer userId) {
+        return this.baseMapper.selectById(userId);
     }
 }

@@ -1,6 +1,7 @@
 .filter {
   width: 1200px;
   margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 .filter .species {
@@ -15,7 +16,7 @@
 
 .filter .species ul li a {
   width: 60px;
-  height: 40px;
+  line-height: 40px;
   float: left;
   text-align: center;
   border-radius: 5px;
@@ -31,18 +32,24 @@
   list-style: none;
   padding-left: 0;
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 16px;
+  border-bottom: #cccccc dotted 2px;
+  padding-bottom: 10px;
+}
+
+.filter .feature ul:last-child {
+  border: none;
 }
 
 .filter .feature ul li {
-  width: 40px;
-  height: 30px;
   float: left;
   text-align: center;
-  padding: 4px;
+  padding: 5px 15px;
+
 }
 
 .filter .feature ul .title {
+  width: 100px;
   font-weight: bolder;
   color: black;
   margin-right: 10px;
@@ -52,11 +59,25 @@
 
 .filter .feature ul .item {
   border-radius: 10px;
+  cursor: pointer;
+  margin-right: 10px;
+
 }
 
-.filter .feature ul .item.active {
+.filter .feature ul .item a {
+  text-decoration: none;
+  color: #000;
+}
+
+.filter .feature ul .item.active,
+.filter .feature ul .item:hover {
   background-color: red;
   color: #ffffff;
+}
+
+.filter .feature ul .item:hover a,
+.filter .feature ul .item.active a {
+  color: #fff;
 }
 
 .result {
@@ -81,6 +102,11 @@
   list-style: none;
   padding-left: 10px;
   padding-right: 10px;
+  margin-left: 15px;
+}
+
+.result .content ul li {
+  background-color: #fff;
 }
 
 .result .content ul li a {
@@ -89,20 +115,26 @@
   margin: 10px 10px 0px 0px;
   float: left;
   box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
+  background-color: #fff;
 }
 
 .result .content ul li a img {
-  width: 220px;
-  height: 220px;
-  margin: 40px;
+  width: 260px;
+  height: 260px;
+  margin: 20px;
   float: left;
   display: block;
+  border-radius: 10px;
+  border: #cccccc solid 1px;
+  padding: 5px;
 }
 
 .result .content ul li a .right {
   float: left;
   width: 270px;
+  height: 290px;
   padding-top: 40px;
+  position: relative;
 }
 
 .result .content ul li a .right .name {
@@ -113,15 +145,33 @@
 }
 
 .result .content ul li a .right .item {
-  width: 270px;
+  width: 135px;
   font-size: 14px;
+  color: #cccccc;
+  margin: 15px 0;
+  float: left;
+}
+
+.result .content ul li a .right .item span {
   color: #000000;
-  margin-bottom: 5px;
+  font-size: 16px;
 }
 
 .result .content ul li a .right .price {
-  width: 270px;
-
-  color: red;
+  color: #e83632;
   margin-bottom: 5px;
+  position: absolute;
+  bottom: 0;
+  font-size: 12px;
+  font-size: 900;
+}
+
+.result .content ul li a .right .price>span:first-child {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+#page {
+  width: 565px;
+  margin: 0 auto;
 }

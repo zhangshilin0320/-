@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>欢迎加入我们</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入 Bootstrap -->
+  <link rel="stylesheet" th:href="@{/api/user/css/bootstrap.min.css}">
+
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <!--[endif]-->
+  <style type="text/css">
+    body,
+    .glass::before {
+
+      background: url("images/products/mao13.jpg") no-repeat;
+      background-position: left top;
+      background-size: 100% 100%;
+      margin: 0px;
+      padding: 0px;
+      background-attachment: fixed;
+      z-index: -1;
+
+    }
+
+    .glass {
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      position: relative;
+
+    }
+
+    .glass::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -ms-filter: blur(5px);
+      -o-filter: blur(5px);
+      filter: blur(5px);
+      filter: progid:DXImageTransform. Microsoft.Blur(PixelRadius=4, MakeShadow=false);
+    }
+
+
+    #form {
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 70px;
+    }
+
+
+
+    .float_right {
+      float: right;
+    }
+
+    .float_left {
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glass"></div>
+
+  <div id="header" class="container">
+    <div class="page-header col-md-12">
+      <h1 class="display-4 mt-4" style="color: aqua;">宠爱电商 <small style="color: white;font-size: 20px;">欢迎注册</small>
+      </h1>
+<!--      <hr class="my-4">-->
+    </div>
+  </div>
+  <div id="center" class="container">
+    <div id="form">
+      <form class="form-horizontal" role="search" th:action="@{/api/user/registry}" method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="用户名" name="username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="密码" name="password">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="手机号" name="phone">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="地址" name="location">
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="isAgree"> <span>我已同意<a href="">《用户协议》</a></span>
+          <button type="submit" class="btn btn-info btn-block">注册</button>
+        </div>
+      </form>
+      <span style="color: red; font-size: large"  th:text="${msg}"></span>
+      <div style="float: right;">
+        <a th:href="@{/api/user/login.html}">已有账号，直接登录 </a>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+<!-- 包括所有已编译的插件 -->
+<script th:src="@{/api/user/js/bootstrap.min.js}"></script>
+
+</html>

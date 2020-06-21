@@ -15,6 +15,13 @@ zuul:
     socket-timeout-millis: 60000
   prefix: /api #路由路径的前缀
   routes:
-    user-service: /user/** #用户服务的映射路径
-    pet-service: /pet/** #商品服务的映射路径
-#    system-service: /system/**
+    user-service:
+      path: /user/** #用户服务的映射路径
+      url: http://localhost:8081/
+    pet-service:
+      path: /pet/** #商品服务的映射路径
+      url: http://localhost:8083/
+  ribbon-isolation-strategy: semaphore
+  semaphore:
+    max-semaphores: 20
+

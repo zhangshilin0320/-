@@ -12,13 +12,15 @@ public class User {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String password;
-    private String name;
+    private String username;
     private String sex;
     private String phone;
     private String location;
 
-    public User(String userName, String password) {
-        this.name = userName;
+    public User( String username,String password, String phone,String location) {
         this.password = password;
+        this.username = username;
+        this.phone = phone;
+        this.location = location;
     }
 }

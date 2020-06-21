@@ -134,3 +134,57 @@ body {
   text-align: center;
   border-left: #333 solid 1px;
 }
+
+
+/* ul 通用样式 */
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.list ul,
+ul.list {
+  list-style: none;
+  margin: 0;
+}
+
+.list li {
+  float: left;
+  color: black;
+}
+
+.list a {
+  text-decoration: none;
+}
+
+/* 回到顶部 */
+#fixed {
+  width: 90px;
+  height: 175px;
+  background-color: red;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+}
+
+#cart,
+#top {
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background-color: red;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: #fff solid 1px;
+}
+
+#top {
+  border: none;
+}
+
+#cart img,
+#top img {
+  display: block;
+  width: 40px;
+  margin: 5px 20px 5px 20px;
+}

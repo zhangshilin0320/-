@@ -4,6 +4,7 @@ package com.pet.order.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pet.order.pojo.Order;
 import com.pet.order.service.OrderService;
+import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.pojo.User;
 import com.pet.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -13,26 +14,30 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping
 @Api("订单接口")
 public class OrderController {
     @Autowired
     private OrderService orderService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductFeignClient productFeignClient;
 
 //    生成订单
     @GetMapping("/createOrder")
-    public ResponseEntity<Map<String,Object>> createOrder(Order order,String username ){
-//       生成订单Id;
+    public String createOrder(Order order,String username, Model model ) throws UnsupportedEncodingException {
+//        System.out.println(username+"************");
+        //       生成订单Id;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String orderId = dateFormat.format(new Date());
 //        设置订单Id
@@ -46,17 +51,26 @@ public class OrderController {
 //        用户Id
         User user = userService.findOne(username);
         order.setUserId(user.getId());
+//            设置用户昵称
         order.setBuyerNick(username);
+
 //        评价
         order.setBuyerRate(0);
 //        发票类型
         order.setInvoiceType(1);
         order.setStatus(1);
-//        System.out.println(order);
+        System.out.println(order);
         orderService.createOrder(order);
-        Map<String,Object> map = new HashMap<>();
-        map.put("order",order);
-        return ResponseEntity.ok(map);
+        return "redirect:/api/user/payHtml/?orderId=" +orderId +"&username=" +URLEncoder.encode(username,"UTF-8");
+    }
+
+    @GetMapping("/payHtml")
+    public String payHtml(String orderId,String username,Model model){
+        Order order = orderService.selectById(orderId);
+        User user = userService.findOne(username);
+        model.addAttribute("order",order);
+        model.addAttribute("user",user);
+        return "pay";
     }
 
 //    更新订单
@@ -83,40 +97,32 @@ public class OrderController {
         order.setReceiverMobile(receiverMobile);
 //        更新订单状态
         order.setStatus(status);
-
         orderService.updateOrder(order);
-
         Map<String,Object> map = new HashMap<>();
         map.put("order",order);
         return ResponseEntity.ok(map);
     }
 
 //    更新订单状态
-    @GetMapping("/updateStatus/{orderId}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "orderId",value = "订单Id", required = true,paramType = "path",dataType = "String"),
-            @ApiImplicitParam(name = "status",value = "订单状态",required = true,paramType = "query",dataType = "String")
-    })
-    public String updateStatus(@PathVariable String orderId,Integer status){
+    @GetMapping("/updateStatus")
+    public String updateStatus(String orderId,Integer status,Integer userId){
         Order order = new Order();
         order.setOrderId(orderId);
         order.setStatus(status);
         orderService.updateOrder(order);
-        return "";
+        return "redirect:/api/user/selectOrders/?userId=" + userId;
     }
 
 //    删除订单
-    @DeleteMapping("/deleteOrder/{orderId}")
-    @ApiOperation(value = "删除订单", notes ="根据订单号删除订单" )
-    @ApiImplicitParam(name = "orderId",value = "订单Id", required = true,paramType = "path",dataType = "String")
-    public ResponseEntity<String> deleteOrder(@PathVariable String orderId){
+    @GetMapping("/deleteOrder")
+    public String deleteOrder(String orderId,Integer userId){
         Order order = new Order();
         order.setOrderId(orderId);
         Integer integer1 = orderService.deleteOrder(order);
-        if (integer1 == 1 ){
-            return ResponseEntity.ok("删除成功");
-        }
-        return ResponseEntity.notFound().build();
+//        if (integer1 == 1 ){
+//            return ResponseEntity.ok("删除成功");
+//        }
+        return "redirect:/api/user/selectOrders/?userId=" + userId;
     }
 
 //    查询订单
@@ -137,5 +143,32 @@ public class OrderController {
         map.clear();
         map.put("order",iPage.getRecords());
         return ResponseEntity.ok(map);
+    }
+
+//    根据用户Id和订单状态查询信息
+    @GetMapping("/selectOrders")
+    public String selectOrders(Integer userId,Integer status,Integer buyerRate,Model model){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("buyerRate",buyerRate);
+        map.put("status",status);
+
+//        System.out.println(userId+"---"+status+"-----"+buyerRate);
+        List<Order> orderList = orderService.SelectOrder(map);
+
+        User user = userService.findOne(userId);
+        model.addAttribute("orderList",orderList);
+        model.addAttribute("user",user);
+        if (status != null && status == 1){
+            return "pay-Order";
+        }else if (status != null && status == 2){
+            return "send-Order";
+        }else if (status != null && status == 3){
+            return "receive-Order";
+        }else if (buyerRate != null && buyerRate == 0){
+            return "evaluate-Order";
+        }else {
+            return "all-Orders";
+        }
     }
 }

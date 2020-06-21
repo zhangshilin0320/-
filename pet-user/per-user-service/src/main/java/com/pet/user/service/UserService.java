@@ -11,4 +11,5 @@ public interface UserService extends IService<User> {
     int insert(User user);
     IPage<User> findAll(Integer pageNum,Integer pageSize);
     void UpdateUser(User user);
+    User findOne(Integer userId);
 }

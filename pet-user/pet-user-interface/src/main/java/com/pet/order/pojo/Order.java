@@ -29,6 +29,8 @@ public class Order implements Serializable {
     private String receiver; //收货人姓名
     private Integer invoiceType; //发票类型(0：无发票 1：普通发票，2：电子发票，3：增值税发票)
     private Integer petId; // 商品Id
+    private String petName;//商品名称
+    private String petImage;// 商品图片
     private Integer status; // 订单状态
     private Date paymentTime;// 付款时间
     private Date consignTime; // 发货时间

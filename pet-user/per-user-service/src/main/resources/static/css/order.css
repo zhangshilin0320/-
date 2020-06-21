@@ -1,0 +1,45 @@
+.content {
+  height: 100%;
+}
+
+.order-sidebar {
+  margin-right: 10px;
+  float: left;
+  width: 200px;
+  height: 100%;
+  background-color: red;
+}
+
+.order-sidebar ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.order-sidebar ul li {
+  width: 120px;
+  height: 60px;
+  padding: 10px;
+  border-bottom: solid #cccccc 1px;
+}
+
+.order-sidebar ul li a {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: aliceblue;
+}
+
+.order-sidebar ul li.active {
+  border-bottom: solid yellow 2px;
+}
+
+.order-sidebar ul li.active a {
+  color: yellow;
+}
+
+.order-right {
+  width: 990px;
+
+  background-color: #fff;
+  float: left;
+}

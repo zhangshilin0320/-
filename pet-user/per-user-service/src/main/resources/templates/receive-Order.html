@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+
+  <link rel="stylesheet" th:href="@{/api/user/css/demo.css}" />
+  <link rel="stylesheet" th:href="@{/api/user/css/order.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/style.css}">
+  <title>订单</title>
+  <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+
+  <script type="text/javascript" th:src="@{/api/user/js/order.js}"></script>
+</head>
+
+<body>
+
+  <div id="header">
+    <div class="header-top w-1200">
+      <div class="logo">
+        <img th:src="@{/api/user/images/icons/logo.png}" alt="">
+        宠爱
+      </div>
+      <div class="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="w-1200">
+        <ul class="header-nav">
+          <li><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+        </ul>
+        <div class="header-user float-right">
+          <img th:src="@{/api/user/images/login/user.png}" alt="">
+          <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+          <a href="#">退出登录</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content w-1200 clearfix">
+    <div class="order-sidebar">
+      <ul>
+        <li><a th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+        <li><a th:href="@{/api/user/selectOrders/(userId=${user.id},buyerRate=0)}">待评价订单</a></li>
+        <li><a th:href="@{/api/user/selectOrders/(userId=${user.id},status=2)}">待发货订单</a></li>
+        <li class="active"><a th:href="@{/api/user/selectOrders/(userId=${user.id},status=3)}">待收货订单</a></li>
+        <li><a th:href="@{/api/user/selectOrders/(userId=${user.id},status=1)}">待付款订单</a></li>
+      </ul>
+    </div>
+    <div id="myOrder" class="order-right">
+      <!-- 表头 -->
+      <div class="car-headers-menu">
+        <div class="row">
+          <div class="col-md-1 car-menu">
+            <label>
+              <input type="checkbox" id="check-goods-all2" />
+              <span id="checkAll2">全选</span>
+            </label>
+          </div>
+          <div class="col-md-3 car-menu">订单号</div>
+          <div class="col-md-3 car-menu">商品信息</div>
+          <div class="col-md-1 car-menu">单价</div>
+          <div class="col-md-1 car-menu">数量</div>
+          <div class="col-md-1 car-menu">实付款</div>
+          <div class="col-md-1 car-menu">订单状态</div>
+          <div class="col-md-1 car-menu">操作</div>
+        </div>
+      </div>
+      <!-- 订单分类标题 -->
+      <div class="order-title bg-success">待收货订单</div>
+      <!-- 订单内容 -->
+      <div class="goods-content" th:each="order : ${orderList}">
+        <!--goods display-->
+        <div class="goods-item">
+          <div class="card">
+            <div class="row m-0">
+              <div class="col-md-1 car-goods-info">
+                <label>
+                  <input type="checkbox" class="goods-list-item" />
+                </label>
+              </div>
+              <div class="col-md-3 car-goods-info goods-image-column" th:text="${order.orderId}">
+                订单号
+              </div>
+              <div class="col-md-3 car-goods-info goods-image-column">
+                <img class="goods-image" th:src="@{${order.petImage}}" style="width: 100px; height: 100px;" />
+                <div id="goods-info" th:text="${order.petName}"></div>
+              </div>
+              <div class="col-md-1 car-goods-info goods-price">
+                <span>￥</span>
+                <span class="single-price" th:text="${order.totalPay}"></span>
+              </div>
+              <div class="col-md-1 car-goods-info goods-counts" th:text="${order.num}">
+                1
+              </div>
+              <div class="col-md-1 car-goods-info goods-money-count">
+                <span>￥</span><span class="single-total" th:text="${order.actualPay}"></span>
+              </div>
+              <div class="col-md-1 car-goods-info">
+                <span th:if="${order.status == 1}">待付款</span>
+                <span th:if="${order.status == 2}">待发货</span>
+                <span th:if="${order.status == 3}">待收货</span>
+                <span th:if="${order.status == 4}">交易成功</span>
+                <span th:if="${order.status == 5}">交易关闭</span>
+                <span th:if="${order.buyerRate == 0}">未评价</span>
+              </div>
+              <div class="col-md-1 car-goods-info goods-operate2">
+                <button type="button" class="btn btn-primary mb-1" th:if="${order.status == 1}">
+                  <a th:href="@{/api/user/payHtml/(orderId=${order.orderId},username=${user.username})}">付款</a>
+                </button>
+                <button type="button" class="btn btn-danger mb-1">
+                  <a th:href="@{/api/user/deleteOrder(userId=${user.id},orderId=${order.orderId})}">删除</a>
+                </button>
+                <button th:if="${order.status != 5 && order.status != 4 }" class="btn btn-success">
+                  <a th:href="@{/api/user/updateStatus/(userId=${user.id},orderId=${order.orderId},status=4)}">确认<br>收货</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <!--删除确认弹框-->
+      <div class="modal fade" tabindex="-1" role="dialog" id="deleteItemTip" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+              确认删除此商品？
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary deleteSure">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="myCollect" class="order-right">
+
+    </div>
+  </div>
+
+
+
+
+</body>
+
+</html>

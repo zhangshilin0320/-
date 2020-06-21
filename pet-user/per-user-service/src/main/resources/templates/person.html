@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+
+  <link rel="stylesheet" th:href="@{/api/user/css/demo.css}" />
+  <link rel="stylesheet" th:href="@{/api/user/css/order.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/style.css}">
+  <title>购物</title>
+  <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+
+  <script type="text/javascript" th:src="@{/api/user/js/order.js}"></script>
+</head>
+
+<body>
+
+  <div id="header">
+    <div class="header-top w-1200">
+      <div class="logo">
+        <img th:src="@{/api/user/images/icons/logo.png}" alt="">
+        宠爱
+      </div>
+      <div class="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="w-1200">
+        <ul class="header-nav">
+          <li><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+        </ul>
+        <div class="header-user float-right">
+          <img th:src="@{/api/user/images/login/user.png}" alt="">
+          <a class="active" th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+          <a href="#">退出登录</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content w-1200 clearfix">
+    <div class="order-sidebar">
+      <ul>
+        <li class="active"><a href="#">个人信息</a></li>
+        <li><a th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+        <li><a th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+      </ul>
+    </div>
+    <div id="myInfo" class="order-right" style="padding: 20px;height: 400px;">
+      <button class="btn btn-dark float-right" id="updateBtn">修改</button>
+      <form style="width: 800px;" th:action="@{/api/user/updateUser(userId=${user.id})}" method="post">
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">姓名</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" name="username" id="name" th:value="${user.username}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">联系方式</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="phone" name="phone" th:value="${user.phone}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">地址</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="address" name="location" th:value="${user.location}">
+          </div>
+        </div>
+        <input type="submit" value="提交" class="btn btn-primary d-none" style="margin-left: 140px;" id="submit">
+      </form>
+    </div>
+    <script type="text/javascript">
+      $(function () {
+        $('#updateBtn').click(function () {
+          $('.form-group').find('input').removeAttr("readonly").removeClass("form-control-plaintext").addClass(
+            "form-control");
+          $('#submit').removeClass('d-none')
+        })
+      })
+    </script>
+  </div>
+
+
+
+
+</body>
+
+</html>

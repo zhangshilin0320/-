@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/api/user/css/vendor/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/flat-ui.min.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/demo.css}">
+  <link rel="stylesheet" th:href="@{/api/user/css/dingdan.css}">
+
+  <title>宠爱</title>
+  <script type="text/javascript" th:src="@{/api/user/js/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body>
+  <!-- 头部 -->
+  <div id="header">
+    <div class="header-top w-1200">
+      <div class="logo">
+        <img src="images/icons/logo.png" alt="">
+        宠爱
+      </div>
+      <div class="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn"><span class="fui-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="w-1200">
+        <ul class="header-nav">
+          <li><a th:if="${user != null}" th:href="@{/api/user/(username = ${user.username})}" class="active">首页</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/selectOrders/(userId=${user.id})}">我的订单</a></li>
+          <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
+        </ul>
+        <div class="header-user float-right">
+          <img src="images/login/user.png" alt="">
+            <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+          <a href="#">退出登录</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 核心内容 -->
+  <form th:action="@{/api/user/createOrder}">
+    <div class="content w-1200 clearfix">
+    <div class="my-progress-bar">
+      <div class="progress-item line-none active">
+        <div class="progress-icon">1</div>
+        <div class="progress-text">1. 确认订单信息</div>
+        <div class="progress-line"></div>
+      </div>
+      <div class="progress-item ">
+        <div class="progress-icon">2</div>
+        <div class="progress-text">2. 付款到支付宝</div>
+        <div class="progress-line"></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-icon">3</div>
+        <div class="progress-text">3. 确认收货</div>
+        <div class="progress-line"></div>
+      </div>
+    </div>
+    <div class="address-select">
+      <div class="address-select-title clearfix">
+        <div>确认收货地址</div>
+        <a href="">管理收货地址</a>
+      </div>
+      <div class="address-list clearfix">
+        <div class="address-item active clearfix">
+<!--          -->
+          <input type="hidden" name="username" th:value="${user.username}">
+          <input type="hidden" name="receiver" th:value="${user.username}">
+          <input type="hidden" name="receiverMobile" th:value="${user.phone}">
+          <input type="hidden" name="receiverAddress" th:value="${user.location}">
+<!--          -->
+          <div>
+            <span th:text="${user.location}">山西省 太原市 尖草坪区 上兰街道 学院路3号中北大学</span>
+            （<span th:text="${user.username}">李富宝</span> 收）
+            <span th:text="${user.phone}">15234512314</span>
+            <span class="badge badge-secondary ml-2">默认地址</span></div>
+<!--          <div><a href="#">修改本地址</a></div>-->
+        </div>
+<!--        <div class="address-item">-->
+<!--          <div>山西省 太原市 尖草坪区 上兰街道 学院路3号中北大学 （李富宝 收）15234512314</div>-->
+<!--          <div><a href="#">修改本地址</a></div>-->
+<!--        </div>-->
+      </div>
+      <button type="button" class="btn btn-default p-1 ml-3 mt-2">添加新地址</button>
+    </div>
+
+    <div class="order-information">
+      <div class="order-title">确认订单信息</div>
+      <div class="order-detail">
+        <div class="order-detail-kuaidi">
+          <div class="order-title">配送方式</div>
+          <div>
+            <input type="hidden" name="paymentType" value="1">
+            <input type="hidden" name="shippingName" value="天天快递">
+            <span class="order-tag">天天快递</span><span>配送时间:预计8月10日（周三） 09:00-15:00送达</span>
+          </div>
+        </div>
+        <div class="order-detail-good">
+          <div class="order-title">商品清单</div>
+          <div class="order-info-item clearfix">
+<!--            -->
+            <input type="hidden" name="petId" th:value="${pet.id}">
+            <input type="hidden" name="petImage" th:value="${pet.image}">
+<!--            -->
+            <div class="img">
+              <img th:src="@{${pet.image}}" alt="">
+            </div>
+<!--            -->
+            <input type="hidden" name="petName" th:value="${pet.name}">
+<!--            -->
+            <div class="info" th:text="${pet.name}">长毛犬</div>
+<!--            -->
+            <input type="hidden" name="totalPay" th:value="${pet.price}">
+            <input type="hidden" name="actualPay" th:value="${pet.price}">
+<!--            -->
+            <div class="price" >￥<span th:text="${pet.price}">5399</span></div>
+<!--            -->
+            <input type="hidden" name="num" value="1">
+<!--            待处理num-->
+            <div class="count">x <span>1</span> </div>
+            <div class="you">有货</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input class="order-submit" type="submit" value="提交订单">
+<!--    <button type="button" class="order-submit">提交订单</button>-->
+  </div>
+  </form>
+  <!-- 底部 -->
+  <div id="footer">
+    <div class="footer-content w-1200">
+      <ul class="footer-nav clearfix">
+        <li><a href="#" class="border-0">用户协议</a></li>
+        <li><a href="#">意见反馈</a></li>
+        <li><a href="#">标签合集</a></li>
+        <li><a href="#">网站地图</a></li>
+      </ul>
+      <div>有权链接</div>
+      <hr style="margin: 0;">
+      <div class="text-center">@网站版本信息</div>
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

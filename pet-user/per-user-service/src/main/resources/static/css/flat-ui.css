@@ -479,9 +479,9 @@ a:focus {
   outline: none;
 }
 
-img {
-  max-width: 100%;
-}
+/*img {*/
+/*  max-width: 100%;*/
+/*}*/
 
 .img-rounded {
   border-radius: 6px;

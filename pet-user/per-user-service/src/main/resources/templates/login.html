@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>登录界面</title>
+  <title>欢迎登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/api/user/css/bootstrap.min.css}">
+
+  <style type="text/css">
+    body {
+      height: 100%;
+
+      background-image: url(./images/products/mao1.jpg);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    #login {
+      width: 360px;
+      height: 500px;
+      background-color: rgba(255, 255, 255, 0.6);
+      position: absolute;
+      top: calc(50% - 250px);
+      left: calc(50% - 180px);
+      border-radius: 10px;
+      padding: 40px;
+    }
+
+    .clearfix:after {
+      /*伪元素是行内元素 正常浏览器清除浮动方法*/
+      content: "";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+
+    .clearfix {
+      *zoom: 1;
+      /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+    }
+
+    .float_left {
+      float: left;
+    }
+  </style>
 </head>
+
 <body>
-<form th:action="@{/api/user/login}" method="post">
-    用户名：<input type="text" value="" name="username"><br><br>
-    密码：<input type="password" value="" name="password"><br><br>
-    <input type="submit" value="登录">
-</form>
-<span style="color:red;" th:text="${msg}"></span>
+  <div id="login">
+    <h1 style="text-align: center;margin-bottom: 40px;">登录</h1>
+    <form th:action="@{/api/user/login}" method="POST">
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="请输入账号" />
+      </div>
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="请输入密码" />
+      </div>
+      <div class="clearfix">
+        <a href="" style="float: right;font-size: 12px;">忘记密码？</a>
+      </div>
+
+      <div class="form-group ">
+        <input type="submit" class="btn btn-block btn-primary" value="登录">
+      </div>
+    </form>
+    <span th:text="${msg}"></span>
+    <div style="width: 100%;text-align: center;margin-top: 60px;">
+      <a th:href="@{/api/user/register.html}">立即注册</a>
+    </div>
+
+  </div>
 </body>
+
 </html>

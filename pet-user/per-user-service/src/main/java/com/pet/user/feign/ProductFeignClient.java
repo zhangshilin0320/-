@@ -22,4 +22,7 @@ public interface ProductFeignClient {
 //
     @RequestMapping("/findOne")
     Pet findOne(String name);
+
+    @RequestMapping("/find")
+    Pet findIdOne(Integer id);
 }
