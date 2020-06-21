@@ -14,7 +14,7 @@ public interface OrderService extends IService<Order> {
     void createOrder(Order order);
 
     //    更新订单信息
-    void updateOrder(Order order);
+    Integer updateOrder(Order order);
 
 //    分页查询所有订单 pageNum:当前页数  pageSize:每页条数
     IPage<Order> selectListByPage(Integer pageNum, Integer pageSize, Map<String,Object> map);

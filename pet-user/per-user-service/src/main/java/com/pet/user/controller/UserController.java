@@ -52,20 +52,16 @@ public class UserController {
     @PostMapping("/login")
     public String login(String username, String password,Model model) throws UnsupportedEncodingException {
         User user = userService.findOne(username);
-//        System.out.println(username +"------"+ user);
-        String msg;
         if (user != null){
             boolean checkPwd = BCrypt.checkpw(password,user.getPassword());
             if (checkPwd){
                 model.addAttribute("user",user);
                 return "redirect:/api/user/?username=" + URLEncoder.encode(username,"UTF-8");
-
             }
-            msg = "密码错误";
-            model.addAttribute("msg",msg);
+            model.addAttribute("msg","密码错误");
+            return "login";
         }
-        msg = "用户不存在";
-        model.addAttribute("msg",msg);
+        model.addAttribute("msg","用户不存在");
         return "login";
     }
 
@@ -97,7 +93,6 @@ public class UserController {
     @GetMapping("/personHtml")
     public String personHtml(Integer userId,Model model){
         User user = userService.findOne(userId);
-        System.out.println(user);
         model.addAttribute("user",user);
         return "person";
     }
@@ -114,12 +109,7 @@ public class UserController {
 //    用户更新信息
     @PostMapping("/updateUser")
     public String updateUser(Integer userId,User user,Model model){
-        System.out.println(userId);
         user.setId(userId);
-//        String salt =  BCrypt.gensalt();
-//        String password1 = BCrypt.hashpw(user.getPassword(),salt);
-//        user.setPassword(password1);
-//        System.out.println(user);
         model.addAttribute("msg","更新成功");
         userService.UpdateUser(user);
         return "redirect:/api/user/personHtml/?userId="+userId;
@@ -157,7 +147,6 @@ public class UserController {
         User user = userService.findOne(username);
         List<String> petImageList = new ArrayList<>();
         petImageList.add(pet.getImage());
-//        System.out.println(user);
         model.addAttribute("pets",petList);
         model.addAttribute("pet",pet);
         model.addAttribute("user",user);
@@ -167,7 +156,6 @@ public class UserController {
 //    跳转到订单页面
     @GetMapping("/order")
     public String order(String name,String username,Model model){
-//        System.out.println(name);
         Pet pet = productFeignClient.findOne(name);
         User user = userService.findOne(username);
         model.addAttribute("pet",pet);

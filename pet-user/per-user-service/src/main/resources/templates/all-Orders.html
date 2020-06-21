@@ -45,7 +45,7 @@
         <div class="header-user float-right">
           <img th:src="@{/api/user/images/login/user.png}" alt="">
           <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
-          <a href="#">退出登录</a>
+          <a th:href="@{/api/user/logout}">退出登录</a>
         </div>
       </div>
     </div>

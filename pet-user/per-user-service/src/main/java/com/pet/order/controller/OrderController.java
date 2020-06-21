@@ -1,10 +1,8 @@
 package com.pet.order.controller;
 
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pet.order.pojo.Order;
 import com.pet.order.service.OrderService;
-import com.pet.user.feign.ProductFeignClient;
 import com.pet.user.pojo.User;
 import com.pet.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -30,13 +28,10 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private ProductFeignClient productFeignClient;
 
 //    生成订单
     @GetMapping("/createOrder")
     public String createOrder(Order order,String username, Model model ) throws UnsupportedEncodingException {
-//        System.out.println(username+"************");
         //       生成订单Id;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String orderId = dateFormat.format(new Date());
@@ -53,7 +48,6 @@ public class OrderController {
         order.setUserId(user.getId());
 //            设置用户昵称
         order.setBuyerNick(username);
-
 //        评价
         order.setBuyerRate(0);
 //        发票类型
@@ -63,7 +57,6 @@ public class OrderController {
         orderService.createOrder(order);
         return "redirect:/api/user/payHtml/?orderId=" +orderId +"&username=" +URLEncoder.encode(username,"UTF-8");
     }
-
     @GetMapping("/payHtml")
     public String payHtml(String orderId,String username,Model model){
         Order order = orderService.selectById(orderId);
@@ -97,9 +90,12 @@ public class OrderController {
         order.setReceiverMobile(receiverMobile);
 //        更新订单状态
         order.setStatus(status);
-        orderService.updateOrder(order);
         Map<String,Object> map = new HashMap<>();
+        if (orderService.updateOrder(order) == 1){
+            map.put("msg","更新成功");
+        }
         map.put("order",order);
+        map.put("msg","更新失败");
         return ResponseEntity.ok(map);
     }
 
@@ -118,10 +114,7 @@ public class OrderController {
     public String deleteOrder(String orderId,Integer userId){
         Order order = new Order();
         order.setOrderId(orderId);
-        Integer integer1 = orderService.deleteOrder(order);
-//        if (integer1 == 1 ){
-//            return ResponseEntity.ok("删除成功");
-//        }
+        orderService.deleteOrder(order);
         return "redirect:/api/user/selectOrders/?userId=" + userId;
     }
 
@@ -141,7 +134,7 @@ public class OrderController {
         }
         IPage<Order> iPage = orderService.selectListByPage(pageNum,pageSize,map);
         map.clear();
-        map.put("order",iPage.getRecords());
+        map.put("order",iPage);
         return ResponseEntity.ok(map);
     }
 
@@ -152,10 +145,7 @@ public class OrderController {
         map.put("userId",userId);
         map.put("buyerRate",buyerRate);
         map.put("status",status);
-
-//        System.out.println(userId+"---"+status+"-----"+buyerRate);
         List<Order> orderList = orderService.SelectOrder(map);
-
         User user = userService.findOne(userId);
         model.addAttribute("orderList",orderList);
         model.addAttribute("user",user);

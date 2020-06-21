@@ -29,8 +29,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
 //    更新订单
     @Override
-    public void updateOrder(Order order) {
-        this.baseMapper.updateById(order);
+    public Integer updateOrder(Order order) {
+        return this.baseMapper.updateById(order);
     }
 
 

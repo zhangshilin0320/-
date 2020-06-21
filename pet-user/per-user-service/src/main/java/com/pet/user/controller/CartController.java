@@ -28,7 +28,6 @@ public class CartController {
 
     @GetMapping("/addCart")
     public ModelAndView addProduct(Integer userId, Integer productId, Integer number) {
-        System.out.println(userId + "*****" + productId + "--------"+ number);
         ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.addCartItem(userId, productId, number);
         return modelAndView;
@@ -36,7 +35,6 @@ public class CartController {
 
     @GetMapping("/getCart")
     public String getCart(Integer userId, Model model) {
-//        ModelAndView modelAndView = new ModelAndView("cart");
         ShopCar shopCar = cartService.getShopCar(userId);
         User user = userService.findOne(userId);
         if(shopCar==null){
@@ -51,7 +49,6 @@ public class CartController {
 
     @GetMapping("/deleteCart")
     public ModelAndView deleteProduct(Integer userId, Integer productId) {
-        System.out.println("************");
         ModelAndView modelAndView = new ModelAndView("redirect:/api/user/getCart/?userId=" + userId);
         cartService.deleteCartItem(userId, productId);
         return modelAndView;

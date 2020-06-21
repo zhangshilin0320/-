@@ -49,16 +49,15 @@ lang="en">
           <li><a th:if="${user != null}" th:href="@{/api/user/getCart/(userId=${user.id})}">我的购物车</a></li>
           <li><a th:if="${user == null}" th:href="@{/api/user/login.html}">我的购物车</a></li>
         </ul>
-        <div class="header-user float-right">
+        <div class="header-user float-right"  th:if="${user == null}">
           <img th:src="@{/api/user/images/login/user.png}" alt="">
-          <div th:if="${user == null}">
-            <a th:href="@{/api/user/login.html}">登录</a>
-            <a href="#">注册</a>
-          </div>
-          <div th:if="${user != null}">
-            <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
-            <a href="#">退出登录</a>
-          </div>
+          <a th:href="@{/api/user/login.html}">登录</a>
+          <a th:href="@{/api/user/register.html}">注册</a>
+        </div>
+        <div class="header-user float-right" th:if="${user != null}">
+          <img th:src="@{/api/user/images/login/user.png}" alt="">
+          <a th:href="@{/api/user/personHtml(userId=${user.id})}">个人中心</a>
+          <a th:href="@{/api/user/logout}">退出登录</a>
         </div>
       </div>
     </div>
